@@ -1,0 +1,11 @@
+- if current_account
+  = current_account.name
+  = link_to "ログアウト", session_path(current_account), method: :delete
+
+- else
+  = link_to "ログイン", new_session_path
+  = link_to "アカウント作成", new_account_path
+
+
+
+
