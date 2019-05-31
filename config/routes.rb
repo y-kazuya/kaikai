@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
+    get    '/accounts',    to: 'accounts#new'
+    resources :accounts, except: [:index]
 
+    resources :sessions, only: [:new, :create, :destroy]
   end
 
   namespace :api, {format: 'json'} do
