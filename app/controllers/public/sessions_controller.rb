@@ -10,7 +10,7 @@ class Public::SessionsController < Public::ApplicationController
     if account && account.authenticate(params[:session][:password]) #存在するユーザーかつpasswordが一致
       log_in account
       params[:session][:remember_me] == '1' ? remember(account) : forget(account)
-      redirect_back_or root_path
+      redirect_back_or dashboard_account_path account
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
