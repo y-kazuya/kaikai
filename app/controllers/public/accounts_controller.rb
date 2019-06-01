@@ -14,39 +14,43 @@ class Public::AccountsController < Public::ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
-      flash[:info] = "できたよ！"
+      flash[:info] = "ようこそ！ アカウントの作成に成功しました! まずは施設情報を登録しましょう！"
       log_in @account
-      redirect_to root_url
+
+      redirect_to account_facilities_path @account
     else
       render 'new'
     end
   end
 
   def edit
-    @account = Account.find(params[:id])
+    @account = Account.find(current_account.id)
   end
 
   def update
-    @account = Account.find(params[:id])
+    @account = Account.find(current_account.id)
     if @account.update_attributes(account_params)
-      flash[:success] = "Profile updated"
-      redirect_to @account
+      flash[:success] = "アカウントの編集に成功しました"
+      redirect_to edit_account_path(@account)
     else
       render 'edit'
     end
   end
 
   def destroy
-    Account.find(params[:id]).destroy
+    Account.find(current_account.id).destroy
     flash[:success] = "Account deleted"
     redirect_to root_url
+  end
+
+  def dashboard
   end
 
 
   private
 
     def account_params
-      params.require(:account).permit(:name, :email, :password,
+      params.require(:account).permit(:email, :password,
                                    :password_confirmation)
     end
 

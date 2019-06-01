@@ -1,6 +1,5 @@
 class Public::ApplicationController < ApplicationController
 
-  include SessionsHelper
 
   private
     def logged_in_account #ログインしてなかったらログイン画面へリダイレクト

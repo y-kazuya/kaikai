@@ -1,6 +1,8 @@
 - if current_account
-  = current_account.name
+  = link_to "topへ", root_path
+  = link_to "施設ダッシュボード", dashboard_account_path(current_account)
   = link_to "ログアウト", session_path(current_account), method: :delete
+  = link_to "アカウント設定へ", edit_account_path(current_account)
 
 - else
   = link_to "ログイン", new_session_path

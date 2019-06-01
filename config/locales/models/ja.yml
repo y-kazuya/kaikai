@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    models:
+      account: アカウント
+      facility: 施設
+    attributes:
+      account:
+        email: メールアドレス
+        password: パスワード
+      facility:
+        name: 施設名
+        url: url
+        image: 施設画像
