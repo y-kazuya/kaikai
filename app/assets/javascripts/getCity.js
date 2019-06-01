@@ -12,13 +12,16 @@ $(document).on('turbolinks:load', function(){
 
   function startCity(){
     target.empty()
-    console.log(target.data("city_name"))
 
-    if ($(".js-pref").find('option:selected')[0] == undefined) {
+    if ($(".js-pref option:selected").val() == "") {
       return false;
     }
-    let state = Number($(".js-pref").find('option:selected')[0].index)
-    state += 1
+    let state = Number($(".js-pref option:selected")[0].index)
+
+    if (state == 0) {
+      return false;
+    }
+
 
     let url = `https://opendata.resas-portal.go.jp/api/v1/cities?prefCode=${state}`
     const api_key = "sLXRi2Ovt21lcBxeFykUus8r0XIiHIAqtPrxntoW"
@@ -46,7 +49,6 @@ $(document).on('turbolinks:load', function(){
   }
 
   $(".js-pref").on("change", function(){
-    target.empty()
     startCity()
   })
 });
