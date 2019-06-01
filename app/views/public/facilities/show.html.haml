@@ -1,0 +1,37 @@
+= provide(:title, '施設情報')
+
+
+%h1 施設情報
+
+
+= form_for @facility ,url: account_facilities_path(@facility),:builder => CustomFormBuilder do |f|
+  = render 'shared/error_messages', object: f.object
+
+  = f.label :name ,"施設名"
+  = f.text_field :name, class: 'form-control'
+
+  = f.label :image ,"施設画像"
+  = f.file_field :image, class: 'form-control'
+  = f.label :url ,"ホームページ"
+  = f.text_field :url, class: 'form-control'
+  = f.label :tel ,"電話番号"
+  = f.text_field :tel, class: 'form-control'
+  = f.label :eamil ,"施設へのメールアドレス"
+  = f.email_field :email, class: 'form-control'
+  %h5 住所
+  = f.label :pref, "都道府県"
+  = f.select :pref, Facility.prefs.keys, {prompt: '選択してください'}, class: 'form-control btn btn-info'
+
+
+  = f.label :city ,"市町村"
+  = f.text_field :city, class: 'form-control'
+
+  = f.label :address ,"町名・番地"
+  = f.text_field :address, class: 'form-control'
+
+
+
+
+  = f.submit "編集内容を保存", class: "btn btn-primary"
+
+= facility_image(@facility)
