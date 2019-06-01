@@ -1,15 +1,12 @@
 class Account < ApplicationRecord
+  after_create :create_facility
+  has_one :facility, dependent: :destroy
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
 
   attr_accessor :remember_token, :activation_token, :reset_token
 
   before_save   :downcase_email
-
-
-  validates :name, presence: true,
-                   uniqueness: { case_sensitive: false } ,
-                   length: { maximum: 30 }
 
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
@@ -45,23 +42,28 @@ class Account < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  # def create_reset_digest
-  #   self.reset_token = Account.new_token
-  #   update_columns(reset_digest:  Account.digest(reset_token), reset_sent_at: Time.zone.now)
-  # end
+  def create_reset_digest
+    self.reset_token = Account.new_token
+    update_columns(reset_digest:  Account.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
 
-  # def send_password_reset_email
-  #   UserMailer.password_reset(self).deliver_now
-  # end
+  def send_password_reset_email
+    AccountMailer.password_reset(self).deliver_now
+  end
 
-  # def password_reset_expired?
-  #   reset_sent_at < 2.hours.ago
-  # end
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
 
   private
 
   def downcase_email
     self.email = email.downcase
+  end
+
+  def create_facility
+    name = "#{self.email}さんの施設(#{rand(100..999)})"
+    Facility.create(account_id: self.id, name: name)
   end
 
 
