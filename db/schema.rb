@@ -10,20 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190528131114) do
+ActiveRecord::Schema.define(version: 20190601060955) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", null: false
     t.string "email", default: "", null: false
     t.boolean "admin", default: false, null: false
     t.string "remember_digest"
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.index ["email"], name: "index_accounts_on_email", unique: true
+  end
+
+  create_table "facilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "url"
+    t.string "image"
+    t.string "email"
+    t.string "tel"
+    t.integer "pref"
+    t.string "city"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "account_id"
+    t.text "name"
   end
 
 end
