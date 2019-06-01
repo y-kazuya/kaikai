@@ -20,11 +20,11 @@
   = f.email_field :email, class: 'form-control'
   %h5 住所
   = f.label :pref, "都道府県"
-  = f.select :pref, Facility.prefs.keys, {prompt: '選択してください'}, class: 'form-control btn btn-info'
+  = f.select :pref, Facility.prefs.keys, {prompt: '選択してください'}, class: 'form-control btn btn-info js-pref'
 
 
   = f.label :city ,"市町村"
-  = f.text_field :city, class: 'form-control'
+  = f.select :city, @facility.city, {prompt: "市町村を選択してください"}, {class: "js-citys", "data-city_name" => "#{@facility.city}"}
 
   = f.label :address ,"町名・番地"
   = f.text_field :address, class: 'form-control'
