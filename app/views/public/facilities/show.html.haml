@@ -19,15 +19,16 @@
   = f.label :eamil ,"施設へのメールアドレス"
   = f.email_field :email, class: 'form-control'
   %h5 住所
-  = f.label :pref, "都道府県"
-  = f.select :pref, Facility.prefs.keys, {}, class: 'form-control btn btn-info js-pref'
+  .address_area
+    = f.label :pref, "都道府県"
+    = f.select :pref, Facility.prefs.keys, {}, class: 'form-control btn btn-info js-pref'
 
 
-  = f.label :city ,"市町村"
-  = f.select :city, "aa", {prompt: "都道府県を選択してください"}, {class: "js-citys", "data-city_name" => "#{@facility.city || ``}"}
+    = f.label :city ,"市町村"
+    = f.select :city, "aa", {prompt: "都道府県を選択してください"}, {class: "js-citys", "data-city_name" => "#{@facility.city || ``}"}
 
-  = f.label :address ,"町名・番地"
-  = f.text_field :address, class: 'form-control'
+    = f.label :address ,"町名・番地"
+    = f.text_field :address, class: 'form-control'
 
 
 
