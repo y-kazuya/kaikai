@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         get :dashboard
       end
       resource :facilities, only: [:show,:update]
+      resources :users, only: [:index,:new,:create,:show,:update,:destroy]
 
     end
 
@@ -29,6 +30,8 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   namespace :api, {format: 'json'} do
-
+    get    "/note_categories",               to: "note_categories#index"
+    post   "/create_note_category",         to: "note_categories#create"
+    post   "/create_check",         to: "checks#create"
   end
 end
