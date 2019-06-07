@@ -1,0 +1,130 @@
+= provide(:title, 'ユーザー登録')
+%h2 ユーザー登録ページ
+
+= form_for [current_account, @user], :builder => CustomFormBuilder do |f|
+  = render 'shared/error_messages', object: f.object
+  = f.label :name, "名前"
+  = f.text_field :name, class: 'form-control'
+
+  = f.label :age, "年齢"
+  = f.number_field :age, class: 'form-control'
+
+  = f.label :birth_year, "年"
+  = f.select :birth_year, (1900..2000), {prompt: "以下から選択してください"}
+
+  = f.label :birth_month, "月"
+  = f.select :birth_month, (1..12), {prompt: "以下から選択してください"},{class: "js-month"}
+
+  = f.label :birth_day, "日"
+  = f.select :birth_day,(1..12), {prompt: "以下から選択してください"},{class: "js-days", "data-birth_day" => "#{@user.birth_day || ``}"}
+
+
+
+  = f.label :image, "写真"
+  = f.file_field :image, class: 'form-control'
+
+  = user_image(@user)
+  性別
+  = f.label :sex, "男性", value: "男性"
+  = f.radio_button :sex, "男性", checked: "checked"
+  = f.label :sex, "女性", value: "女性"
+  = f.radio_button :sex, "女性"
+
+  = f.label :care_level, "要介護度"
+
+  = f.select :care_level,User.care_levels.keys
+
+
+
+  %p 主な利用曜日
+
+  - User.weeks.each do |key, value|
+    = f.label "use_#{value}", "#{key}"
+    = f.check_box "use_#{value}", {}, true, false
+
+
+  %p 緊急連絡先
+  %p{class: "js-add_em"} 緊急連絡先を追加する
+
+
+  - @user.emergency_contacts.each_with_index do |u_em, index|
+    .js-em-lists
+      .js-em-list
+        = f.fields_for :emergency_contacts, u_em  do |em|
+          .form_item.need_item
+            = em.label :name , "名前"
+            = em.text_field :name
+
+          .form_item.need_item
+            = em.label :relation, "本人との続柄"
+            = em.text_field :relation
+
+          .form_item.need_item
+            = em.label :tel, "電話番号"
+            = em.number_field :tel
+
+          .form_item.need_item
+            = em.label :email, "メールアドレス"
+            = em.email_field :email
+
+
+          %h5 住所
+          .address_area
+            = em.label :pref, "都道府県"
+            = em.select :pref, EmergencyContact.prefs.keys.to_a, {}, class: 'form-control btn btn-info js-pref'
+
+
+            = em.label :city ,"市町村"
+            = em.select :city, "aa", {prompt: "都道府県を選択してください"}, {class: "js-citys", "data-city_name" => "#{u_em.city || ``}"}
+
+            = em.label :address ,"町名・番地"
+            = em.text_field :address, class: 'form-control'
+
+
+
+  %h5 留意事項
+  %p{class: "js-add_note"} 留意事項を追加する
+  .form_item.need_item
+    = label :note_category_name, "事柄のタイプを追加する"
+    = text_field :note_category_name, {},{class: "form-control js-note_category_name_field"}
+    %p.js-add_category_name 追加
+  - @user.notes.each_with_index do |u_note, index|
+    .js-note-lists
+      .js-note-list
+        = f.fields_for :notes, u_note  do |note|
+          .form_item.need_item
+            = note.label :note_category_id , "事柄のタイプを選択する"
+            = note.collection_select :note_category_id, NoteCategory.where("(public = ?) OR (facility_id = ?)", true, current_facility.id), :id, :name, {prompt: "---未選択---"},class: 'form-control btn btn-info js-note_category_area'
+
+
+
+          .form_item.need_item
+            = note.label :title , "事柄"
+            = note.text_field :title
+
+          .form_item.need_item
+            = note.label :content, " 内容"
+            = note.text_area :content
+
+  %h5 利用者の毎日のチェツク項目
+  %p チェック項目の追加
+  .form_item.need_item
+    = label :check_title, "チェック項目名"
+    = text_field :check_title, {},{class: "form-control js-check_name_field"}
+  .form_item.need_item
+    = label :check_kind, "チェック項目タイプ"
+    = select :check_kind,"aa", [["テキストタイプ", 0],["チェックタイプ",1]],{},{class: "js-check_kind_field"}
+  %p.js-add_check 追加
+
+
+  .js-check_lists
+    = f.collection_check_boxes(:check_ids, Check.where("(public = ?) OR (facility_id = ?)", true, current_facility.id), :id, :title) do |b|
+      .js-check_list
+        = b.label { b.check_box}
+        .check-list-name
+          = "#{b.object.title}(#{b.object.kind})"
+
+
+
+
+  = f.submit "Create my account", class: "btn btn-primary"

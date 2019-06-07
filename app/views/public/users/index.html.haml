@@ -1,0 +1,10 @@
+= provide(:title, 'ユーザー管理')
+%h2 ユーザー管理ページ
+
+= link_to "ユーザーを登録する", new_account_user_path(current_account)
+
+
+%ul
+  - @users.each do |user|
+    %li
+      = link_to "#{user.name}さん", account_user_path(current_account, user.id)
