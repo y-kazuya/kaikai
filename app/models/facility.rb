@@ -1,6 +1,9 @@
 class Facility < ApplicationRecord
   mount_uploader :image, FacilityImageUploader
   belongs_to :account
+  has_many :users, dependent: :destroy
+  has_many :note_categories, dependent: :destroy
+  has_many :checks, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   VALID_URL_REGEX = /\Ahttp(s)?:\/\/([-\w]+\.)+[-\w]+(\/[-\w.\/?%&=]*)?/
