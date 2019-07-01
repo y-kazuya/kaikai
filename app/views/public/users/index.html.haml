@@ -1,0 +1,128 @@
+
+= provide(:title, 'ユーザー管理')
+%section.dash_board_main.user_index
+  .d_title01
+    %h2
+      %span
+        ユーザー管理
+  .dash_board_innner
+    %p.add_content_text
+      %span
+        = link_to "新規利用者を登録+", new_account_user_path(current_account)
+
+    %article.box1
+      .box1_innner
+        .form_items
+          .my_grid.grid-1-2-55.my_grid-pc
+            .my_grid_item
+              .form_item
+                .labe_area
+                  = label :search, :name, "名前"
+                .input_area
+                  = text_field :search, :name, class: 'form-control'
+            .my_grid_item
+              .form_item
+                .labe_area
+                  = label :search, :age, "年齢"
+                .input_area.input_area-has_content
+                  = number_field :search, :age, class: 'form-control d_ib small_input'
+                  %p
+                    %span
+                      歳以上
+          .form_item.my_grid.grid-many_items
+            - User.weeks.each do |key, value|
+              .custom-control.custom-radio.my_grid_item
+                = check_box :search,"use_#{value}",{class: "custom-control-input"}, true, false
+                = label :search,"use_#{value}","#{key}",class: "custom-control-label"
+
+
+
+    %article
+      .d_title02
+        %h3
+          %span
+            ユーザー一覧
+      .form-items
+        %ul.users_lists
+          - @users.each_with_index do |user,index|
+            = link_to "#{user.name}さん(#{user.age})", account_user_path(current_account, user.id)
+            %li.users_list
+              .box2.user_card
+                .box2_innner
+                  .box2_item
+                    .media
+                      = image_tag(preview_picture_image(user), class: "picture_preview rounded-circle avatar mr-3")
+                      .media-body
+                        %h5.mt-0
+                          %p
+                            = "#{user.name}さん（#{user.age}）"
+                        %p
+                          ="要介護度：#{user.care_level_before_type_cast || "0"}"
+                        %p
+                          ="主な利用曜日：#{get_use_weeks(user)}"
+                  .box2_item
+                    %p.user_more_info
+                      %a{"aria-controls" => "multiCollapseExample1", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#user_info_#{index}", :role => "button"}
+                        詳しく見る▽
+
+                  .box2_accordion
+                    .collapse.multi-collapse{id: "user_info_#{index}"}
+                      .innner_box
+                        .d_title03
+                          %h4
+                            %span
+                              留意事項
+                        %ul.box2_items
+                          -refine_user_note(user).each do |key, value|
+                            %li
+                              .box2_item.d_title04
+                                %span
+                                  ="#{key}"
+                              %ul.note-list
+                                - value.each do |un|
+                                  %li
+                                    .box2_item
+                                      %span
+                                        = un.content
+
+                      .innner_box
+                        .d_title03
+                          %h4
+                            %span
+                              チェック事項
+                        ///#TODO この項目を出すのは当日の人のみ。当時の人は、枠の色を変えたりしてわかりやすく
+                        %ul.box2_items
+                          -user.checks.each do |check|
+                            %li
+                              .box2_item.custom-control.custom-radio.flex_form
+
+                                - if check.kind == "テキストタイプ"
+                                  = label :user_check_histories, :text_content, "#{check.title}"
+                                  = text_field :user_check_histories, :text_content, class: 'form-control'
+                                - else
+                                  = check_box :user_check_histories, :check_content, {class: "custom-control-input"}
+                                  = label :user_check_histories, :check_content, "#{check.title}",class: "custom-control-label"
+                      - if user.has_today_date?
+                        .innner_box
+                          .d_title03
+                            %h4
+                              %span
+                                本日の記録
+                          .box2_items
+                            = text_area :user_histories, :content, {class: 'form-control'}
+
+
+
+
+
+
+
+
+
+
+
+
+
+-#  = link_to "#{user.name}さん(#{user.age})", account_user_path(current_account, user.id)
+
+

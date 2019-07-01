@@ -1,0 +1,155 @@
+.main-page{
+  width: 100%;
+  height: 90vh;
+  display: flex;
+
+  .dash_board{
+    overflow: scroll;
+    height: 100%;
+    width: 80%;
+    background-color: $color-white;
+  }
+
+
+  .sidebar_warpper{
+    border-right: 1px solid $color-sub-sub;
+    height: 100%;
+    width: 20%;
+    background-color: $color-sub;
+    color: white;
+    opacity: 0.9;
+
+    .sidebar_title{
+      text-align: center;
+      padding: 25px 5px;
+    }
+
+    .sidebar{
+      padding: 10px 10px 0px 30px;
+      border-top: 1px solid $color-sub-sub;
+      font-size: 18px;
+      .siebar_list{
+        padding-top: 40px;
+        a{
+          color: white;
+        }
+      }
+
+      .siebar_list:hover{
+        opacity: 0.5;
+        cursor: pointer;
+        animation: anime1 5s ease -2s infinite alternate;
+      }
+
+      .active{
+        opacity: 0.5
+
+      }
+    }
+  }
+
+  .sidebar_title{
+    font-size: 22px;
+
+  }
+
+}
+
+.side_icon{
+  height: 30px;
+  width: 30px;
+  padding-right: 5px;
+}
+
+.modal-back{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: gray;
+  opacity: 0.2;
+
+}
+
+.lotate-180 {
+  transform: rotate(180deg);
+  transition-duration: 300ms;
+  // transition-property: all;
+  // transition-duration: 300ms;
+  // transition-delay: 0s;
+  // transition-timing-function: ease;
+}
+
+.js-db{
+  display: block;
+}
+
+
+$sidebar_width: 80%;
+@media screen and ( max-width:650px )
+{
+
+
+  .sidebar_title{
+    margin-top: 35%;
+    padding: 5px 7px;
+  }
+  .main-page .sidebar_warpper {
+
+    height: 114%;
+    width: 80%;
+    z-index: 40;
+    opacity: 1.0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin-top: -11.2vh;
+    margin-left: -79%;
+  }
+
+  .main-page {
+    display: block;
+  }
+
+
+  .main-page .dash_board {
+    width: 100%;
+  }
+
+  .sidebar_open_button{
+    margin-left: 1%;
+    display: inline-block;
+    position: fixed;
+    z-index: 20;
+    transform: rotate(180deg);
+    .side_icon{
+      padding: 0;
+    }
+
+  }
+
+  .js-open_sidebar{
+    margin-left: 0 !important;
+
+    transition-duration: 300ms;
+  }
+
+  .js-open_sidebar_button{
+    margin-left: 80%;
+    transform: rotate(0deg);
+    transition-duration: 300ms;
+
+  }
+
+  .js-close_sidebar{
+    transition-duration: 300ms;
+  }
+
+}

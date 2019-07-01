@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function(){
-  const target = $(".js-citys")
+  // const target = $(".js-citys")
 
-  function replaceCitys(data){
+  function replaceCitys(data,target){
     data.result.forEach(function(city){
       target.data("city_name")
       selected = target.data("city_name") == city.cityName ? 'selected' : '';
@@ -10,13 +10,13 @@ $(document).on('turbolinks:load', function(){
     });
   }
 
-  function startCity(){
+  function startCity(state,target){
     target.empty()
 
-    if ($(".js-pref option:selected").val() == "") {
+    if ($(state).find('option:selected')[0] == undefined) {
       return false;
     }
-    let state = Number($(".js-pref option:selected")[0].index)
+    state = Number($(state).find('option:selected')[0].index)
 
     if (state == 0) {
       return false;
@@ -34,7 +34,7 @@ $(document).on('turbolinks:load', function(){
       dataType: 'json',
     })
     .done(function(data){
-      replaceCitys(data)
+      replaceCitys(data,target)
 
     })
     .fail(function() {
@@ -44,11 +44,26 @@ $(document).on('turbolinks:load', function(){
   }
 
 
-  if ($(".js-pref").length ){
-    startCity()
+  if ($(".address_area").length ){
+
+    $.each($(".js-pref"), function(i, state) {
+      let insert_target = $(state).parents(".address_area").find(".js-citys")
+
+      startCity(state, insert_target)
+    });
   }
 
-  $(".js-pref").on("change", function(){
-    startCity()
-  })
+
+
+  $("form").on("change", ".js-pref", function(){
+    console.log("aaa")
+    state = this
+
+    let insert_target = $(state).parents(".address_area").find(".js-citys")
+    startCity(state, insert_target)
+
+  });
+
+
+
 });

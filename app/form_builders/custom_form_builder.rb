@@ -3,6 +3,11 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     super + error(method)
   end
 
+  def text_area(method, options = {})
+    super + error(method)
+  end
+
+
   def email_field(method, options = {})
     super + error(method)
   end

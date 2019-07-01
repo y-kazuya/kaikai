@@ -3,6 +3,7 @@ ja:
     models:
       account: アカウント
       facility: 施設
+      user: 利用者
     attributes:
       account:
         email: メールアドレス
@@ -11,3 +12,5 @@ ja:
         name: 施設名
         url: url
         image: 施設画像
+      user:
+        name: 名前

@@ -2,6 +2,7 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,12 +10,23 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <%= render 'layouts/sidebar' %>
-    <% flash.each do |message_type, message| %>
-      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-    <% end %>
-    <%= yield %>
-    <%= render 'layouts/fotter' %>
+    <div class="wapper">
+      <%= render 'layouts/header' %>
+
+      <% flash.each do |message_type, message| %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <% end %>
+        <%- unless controller.controller_name == "pages"%>
+          <div class="main-page">
+            <%= render 'layouts/sidebar' %>
+            <div class="dash_board">
+              <%= yield %>
+            </div>
+          </div>
+        <%- else %>
+          <%= yield %>
+        <%- end %>
+      <%= render 'layouts/fotter' %>
+    </div>
   </body>
 </html>

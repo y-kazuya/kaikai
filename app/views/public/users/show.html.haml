@@ -1,0 +1,201 @@
+= provide(:title, 'ユーザー詳細')
+%section.dash_board_main
+  .d_title01
+    %h2
+      %span
+        ユーザー詳細
+  .dash_board_innner
+    = form_for [current_account, @user], :builder => CustomFormBuilder,html: { class: 'ajax-validatio'} do |f|
+      = render 'shared/error_messages', object: f.object
+      %article.form-card
+        .d_title02
+          %h3
+            %span
+              基本情報
+        .form-items
+          .my_grid.grid-1-2-maxauto
+            .my_grid_item
+              .form-content-title
+                %h4.need_item
+                  %span
+                    写真
+              .form_item.picture_field.form-group
+                = f.label :image do
+                  = image_tag(preview_picture_image(@user), class: "picture_preview")
+
+                = f.file_field :image, class: "display_none image"
+            .my_grid_item
+              .form_item.need_item.innner-item
+                .label_area
+                  = f.label :name, "名前"
+                .input_area
+                  = f.text_field :name, class: 'form-control'
+              .form_item.need_item
+                .labe_area
+                  = f.label :age, "年齢"
+                .input_area
+                  = f.number_field :age, class: 'form-control'
+
+          .form-content-title
+            %h4.need_item
+              %span
+                生年月日
+          .my_grid.grid-1-3-auto
+            .my_grid_item
+              .form_item.flex_form
+                = f.label :birth_year, "年"
+                = f.select :birth_year, (1900..2000), {prompt: "▼選択して下さい"},{class: "form-control"}
+            .my_grid_item
+              .form_item.flex_form
+                = f.label :birth_month, "月"
+                = f.select :birth_month, (1..12), {prompt: "▼選択して下さい"},{class: "js-month form-control"}
+            .my_grid_item
+              .form_item.flex_form
+                = f.label :birth_day, "日"
+                = f.select :birth_day,(1..12), {prompt: "▼選択して下さい"},{class: "js-days form-control", "data-birth_day" => "#{@user.birth_day || ``}"}
+
+          .my_grid.grid-1-2-28
+            .my_grid_item
+              .form-content-title
+                %h4.need_item
+                  %span
+                    性別
+
+              .form_item
+                .custom-control.custom-radio
+                  = f.radio_button :sex, "女性",{class:"custom-control-input",checked: "checked"}
+                  = f.label :sex, "女性", value: "女性",class: "custom-control-label"
+                .custom-control.custom-radio
+                  = f.radio_button :sex, "男性",{class:"custom-control-input"}
+                  = f.label :sex, "男性", value: "男性",class: "custom-control-label"
+            .my_grid_item
+              .form_item
+                .form-content-title
+                  %h4
+                    %span
+                      = f.label :care_level, "要介護度"
+                  = f.select :care_level,User.care_levels.keys,{},{class: "form-control"}
+
+
+          .form-content-title
+            %h4
+              %span
+                利用予定日
+          .form_item.my_grid.grid-many_items
+            - User.weeks.each do |key, value|
+              .custom-control.custom-radio.my_grid_item
+                = f.check_box "use_#{value}", {class:"custom-control-input"}, true, false
+                = f.label "use_#{value}", "#{key}",class: "custom-control-label"
+
+
+      %article.form-card
+        .d_title02
+          %h3
+            %span
+              緊急連絡先
+
+        %p.add_content_text
+          %span{class: "js-add_em"} 緊急連絡先を追加+
+
+        .js-em-lists
+          - @user.emergency_contacts.each_with_index do |u_em, index|
+            .js-em-list.add_list
+              = f.fields_for :emergency_contacts, u_em  do |em|
+                .form-items
+                  .my_grid.grid-1-2-55
+                    .my_grid_item
+                      .form_item.need_item
+                        = em.label :name , "名前"
+                        = em.text_field :name, class: 'form-control'
+                    .my_grid_item
+                      .form_item.need_item
+                        = em.label :relation, "続柄"
+                        = em.text_field :relation, class: 'form-control small_input'
+                  .my_grid.grid-1-2-55.my_grid-pc
+                    .my_grid_item
+                      .form_item.need_item
+                        = em.label :tel, "電話番号"
+                        = em.number_field :tel, class: 'form-control'
+                    .my_grid_item
+                      .form_item
+                        = em.label :email, "メールアドレス"
+                        = em.email_field :email, class: 'form-control'
+
+                  .address_area.my_grid.fit-grid-half
+                    .my_grid_item
+                      .form_item.need_item
+                        = em.label :pref, "都道府県"
+                        = em.select :pref, EmergencyContact.prefs.keys.to_a, {}, class: 'form-control js-pref half_input'
+
+                    .my_grid_item
+                      .form_item.need_item
+                        = em.label :city ,"市町村"
+                        = em.select :city, "aa", {prompt: "都道府県を選択してください"}, {class: "form-control js-citys half_input", "data-city_name" => "#{u_em.city || ``}"}
+                    .my_grid_item
+                      .form_item
+                        = em.label :address ,"町名・番地"
+                        = em.text_field :address, class: 'form-control'
+
+
+      %article.form-card
+        .d_title02
+          %h3
+            %span
+              留意事項
+
+        %p.add_content_text
+          %span{class: "js-add_note"} 留意事項を追加+
+        .form-items
+          = label :note_category_name, "事柄のカテゴリを追加"
+          .my_grid.grid-1-2-maxmax.my-grid-gap0
+            .my_grid_item
+              .form_item
+                = text_field :note_category_name, {},{class: "form-control js-note_category_name_field"}
+            .my_grid_item
+              .form_item
+                %p.add_content_text
+                  %span{class: "js-add_category_name"} 追加
+          .js-note-lists
+            - @user.notes.each_with_index do |u_note, index|
+              .js-note-list.add_list
+                = f.fields_for :notes, u_note  do |note|
+                  .my_grid.grid-1-2-28.my_grid-pc
+                    .my_grid_item
+                      .form_item.need_item
+                        = note.label :note_category_id , "事柄のカテゴリ"
+                        = note.collection_select :note_category_id, NoteCategory.where("(public = ?) OR (facility_id = ?)", true, current_facility.id), :id, :name, {},{class: 'form-control js-note_category_area'}
+                    .my_grid_item
+                      .form_item.need_item
+                        = note.label :content, "内容"
+                        = note.text_area :content, class: 'form-control'
+
+      %article.form-card
+        .d_title02
+          %h3
+            %span
+              利用者のチェック項目
+        .form-items
+          = label :check_title,"チェック項目の追加"
+          .my_grid.grid-1-2-55.my-grid-gap0.my_grid-pc
+            .my_grid_item
+              .form_item
+                = select :check_kind,"aa", [["テキストタイプ", 0],["チェックタイプ",1]],{},{class: "js-check_kind_field form-control" }
+            .my_grid_item
+              .form_item
+                = text_field :check_title, {},{class: "form-control js-check_name_field d_ib"}
+                %p.add_content_text.d_ib.mb-0
+                  %span{class: "js-add_check"} 追加
+
+
+
+          .js-check_lists.form_item.my_grid.grid-many_items.grid-many_items-300
+
+            = f.collection_check_boxes(:check_ids, Check.where("(public = ?) OR (facility_id = ?)", true, current_facility.id), :id, :title) do |b|
+              .js-check_list.custom-control.custom-radio.my_grid_item
+
+                = b.check_box class:"custom-control-input"
+                = b.label class: "custom-control-label" do
+                  = "#{b.object.title}(#{b.object.kind})"
+
+
+      = f.submit "利用者を保存する", class: "btn btn-warning"
