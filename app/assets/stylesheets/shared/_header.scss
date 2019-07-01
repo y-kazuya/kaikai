@@ -1,0 +1,49 @@
+
+
+
+.navbar{
+  background-color: $color-main !important;
+  padding: 0;
+  border-bottom: 1px solid $color-sub-sub;
+}
+
+.navbar-brand{
+  font-size: 28px;
+  color: $color-black !important;
+  padding: 15px 0px 15px 40px;
+  h1{
+    font-weight: bold;
+  }
+}
+
+
+.modal-header{
+  padding-bottom: 0;
+  border-bottom:1px solid $color-main;
+}
+
+.nav-tabs{
+  border-bottom: none;
+  .navbar-default{
+    color: $color-black;
+  }
+  .nav-item .active{
+    border-top-color: $color-main;
+    border-left-color: $color-main;
+    border-right-color: $color-main;
+    color: $color-sub;
+
+  }
+}
+
+.tab-pane{
+  display: block;
+  opacity: 0.0;
+}
+
+.tab-content > .active {
+  display: block;
+  opacity: 1.0;
+  transition-duration: 800ms;
+  -webkit-transition-duration: 800ms;
+}

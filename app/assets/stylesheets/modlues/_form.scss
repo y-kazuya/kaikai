@@ -1,0 +1,303 @@
+.form_item{
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input_area{
+  position: relative
+}
+
+.form-control{
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.small_input{
+  min-width: 100px;
+  max-width: 150px;
+}
+
+.form-card{
+  margin-bottom: 50px;
+}
+
+.form-items{
+  padding-left: 0.5rem;
+}
+
+
+.flex_form{
+  display: flex;
+  align-items: baseline;
+}
+
+.flex_form label{
+  padding-right: 10px
+}
+
+
+.picture_preview{
+  border: 1px solid black;
+  width: 227px;
+  height: auto;
+  cursor: pointer;
+}
+
+.display_none{
+  display: none;
+}
+
+.form-content-title{
+  h4{
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+}
+
+
+.error-info{
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: $color-sub-sub;
+}
+
+.error_lists{
+  padding-left: 10px;
+  margin-bottom: 20px;
+  li{
+    margin-bottom: 10px;
+    span{
+      border-bottom: 2px solid $color-sub-sub;
+      padding-bottom: 2px;
+    }
+  }
+}
+
+
+.form01{
+  .form-error{
+
+    .form-error-title{
+      color: $color-sub-sub;
+      margin-bottom: 15px;
+      margin-top: -50px;
+      z-index: -10000;
+      position: relative;
+      span{
+      vertical-align: middle;
+      }
+    }
+
+    .form-error-title:before{
+      height: 30px;
+      width: 30px;
+      padding-right: 5px;
+      content: '';
+      display: inline-block;
+      background-image: url("/assets/common/icon_alert.png");
+      background-size: contain;
+      vertical-align: middle;
+    }
+
+    .active{
+      margin-top: 0;
+      z-index: 10;
+      transition-duration: 300ms;
+    }
+  }
+
+
+
+}
+
+.has-error{
+  color: $color-sub-sub;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.has-error:before{
+  height: 18px;
+  width: 18px;
+  padding-right: 5px;
+  content: '';
+  display: inline-block;
+  background-image: url("/assets/common/icon_alert.png");
+  background-size: contain;
+  vertical-align: middle;
+}
+.help-block{
+  vertical-align: middle;
+}
+
+
+.add_content_text{
+
+  color: $color-sub;
+  font-size: 18px;
+  margin-bottom: 20px;
+  span{
+    cursor: pointer;
+  }
+
+  span:hover{
+    opacity: 0.6;
+  }
+}
+
+.remove_content_text{
+  color: $color-sub-sub;
+  font-size: 18px;
+  span{
+    cursor: pointer;
+  }
+
+  span:hover{
+    opacity: 0.6;
+  }
+}
+
+.form-submit{
+  text-align: center;
+}
+
+
+.form_alert_icon{
+  height: 30px;
+  width: 34px;
+  padding-right: 5px;
+}
+
+
+.bib {
+	animation: bib .3s ;
+}
+
+.validation_input-red {
+  border-color: $color-sub-sub;
+}
+
+.ajax-error-content{
+  color: $color-sub-sub;
+  margin: 5px auto 10px;
+
+  span{
+  vertical-align: middle;
+  }
+
+}
+.ajax-error-content:before{
+  height: 17px;
+  width: 17px;
+  padding-right: 5px;
+  content: '';
+  display: inline-block;
+  background-image: url("/assets/common/icon_alert.png");
+  background-size: contain;
+  vertical-align: middle;
+}
+
+.v-need{
+  position: relative;
+}
+
+
+.v-need .input_area input{
+  padding-right: 10%;
+}
+
+.v-need .input_area:before{
+  content: '';
+  display: inline-block;
+  background-image: url(/assets/common/icon_pen.png);
+  background-size: contain;
+  vertical-align: middle;
+  position: absolute;
+  top: 0;
+  right: 3%;
+  bottom: 0;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+}
+
+.dash_board_main .v-need .input_area:before{
+  right: inherit;
+  left: 1%
+}
+
+
+.dash_board_main .v-need .input_area input{
+  padding-left: 2rem;
+}
+
+
+
+.add_list{
+  border-bottom: 2px solid $color-sub;
+  margin-bottom: 20px;
+}
+
+
+
+
+@keyframes bib {
+	90% {
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	}
+	93% {
+	-webkit-transform: translateX(-50px);
+	transform: translateX(-50px);
+	}
+	96% {
+	-webkit-transform: translateX(30px);
+	transform: translateX(30px);
+	}
+	100% {
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	}
+}
+
+
+@media screen and ( max-width:650px )
+{
+
+  .form-control {
+    min-width: 160px;
+  }
+
+  .half_input{
+    min-width: 100px;
+  }
+
+  .small_input{
+    min-width: 60px;
+    max-width: 80px;
+  }
+
+  .form01{
+    .form-error{
+      .form-error-title:before{
+        height: 24px;
+        width: 24px;
+
+      }
+    }
+  }
+
+  .form-items .picture_preview {
+    border: 1px solid black;
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+  }
+
+
+
+}
+
+.d_ib{
+  display: inline-block;
+}
