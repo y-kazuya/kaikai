@@ -3,7 +3,10 @@ class Check < ApplicationRecord
   has_many :user_checks, dependent: :destroy
   has_many :users, through: :user_checks
 
-  validate :uniqe_public
+  validates :title, presence: true
+
+  validate :uniqe_public,on: :create
+  validate :uniqe_in_facility,on: :create
 
 
   enum kind: {
@@ -15,4 +18,12 @@ class Check < ApplicationRecord
   def uniqe_public
     errors.add(:name, "同じ名前のタイプが存在します") if Check.where(public: true).where(title: title) != []
   end
+
+  def uniqe_in_facility
+    errors.add(:name, "同じ名前のタイプが存在します。") if Check.where(facility_id: self.facility.id).where(title: title) != []
+  end
+
+  # def facility_public
+  #   errors.add(:name, "同じ名前のタイプが存在します。") if Check.where(facility_id: self.facility.id).where(title: title) != []
+  # end
 end

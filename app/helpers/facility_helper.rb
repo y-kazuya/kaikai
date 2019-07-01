@@ -12,4 +12,11 @@ module FacilityHelper
       "ないよ"
     end
   end
+
+  def sidebar_active?(target)
+    if controller.controller_name == target
+      return "active"
+    end
+
+  end
 end
