@@ -47,7 +47,8 @@ $(document).on('turbolinks:load', function(){
   if ($(".address_area").length ){
 
     $.each($(".js-pref"), function(i, state) {
-      let insert_target = $(state).parent(".address_area").find(".js-citys")
+      let insert_target = $(state).parents(".address_area").find(".js-citys")
+
       startCity(state, insert_target)
     });
   }
@@ -57,7 +58,8 @@ $(document).on('turbolinks:load', function(){
   $("form").on("change", ".js-pref", function(){
     console.log("aaa")
     state = this
-    let insert_target = $(state).parent(".address_area").find(".js-citys")
+
+    let insert_target = $(state).parents(".address_area").find(".js-citys")
     startCity(state, insert_target)
 
   });
