@@ -72,5 +72,8 @@ gem 'faker'
 gem 'rails-i18n'
 
 gem 'momentjs-rails'
+gem 'fullcalendar-rails'
 
 gem 'bootstrap4-datetime-picker-rails'
+gem 'whenever', require: false
+gem 'activerecord-import'
