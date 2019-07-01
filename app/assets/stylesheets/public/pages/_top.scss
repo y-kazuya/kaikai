@@ -1,0 +1,60 @@
+@media screen and ( max-width:650px )
+{
+.mv-title{
+  font-size: 36px;
+  line-height: 4rem;
+}
+.mv-text_box{
+  h2{
+    font-size: 28px;
+  }
+}
+
+.navbar-collapse{
+  padding-left: 10px;
+}
+
+}
+
+@media screen and ( min-width:651px ){
+  .mv-title{
+    font-size: 42px;
+  }
+
+  .mv-text{
+    font-size: 38px;
+  }
+}
+
+
+.mv_area{
+  width: 100%;
+  height:30vh;
+  background-size:  cover;
+  background-color: #f26964;
+  max-height: 184px;
+  .mv-text_box{
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    h2{
+      display: inline;
+      text-align: center;
+      color: white;
+    }
+
+  }
+}
+
+.mv-title{
+  font-weight: bold;
+  margin-right: 4rem;
+}
+
+.mv-text{
+  text-align: center;
+  position: absolute;
+  top: 21%;
+  margin-left: 10px;
+}
