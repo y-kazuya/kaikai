@@ -1,5 +1,12 @@
 - if object.errors.any?
   .error_explanation
-    .alert
-      フォームにエラーがあります。
+    %h3.error-info
+      %span
+        フォームにエラーがあります。
+
+    %ul.error_lists
+      - object.errors.full_messages.each do |msg|
+        %li.error_list
+          %span
+            = msg
 
