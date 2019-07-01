@@ -1,0 +1,12 @@
+.alert{
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  top: 40%;
+  border: 1px solid gray;
+}
+
+.removeAlert{
+  opacity: 0.0;
+  transition-duration: 3000ms;
+}
