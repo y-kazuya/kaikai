@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :check_history do
+  factory :user_check_history do
     
   end
 end
