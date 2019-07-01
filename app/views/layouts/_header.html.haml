@@ -1,12 +1,108 @@
-- if current_account
-  = link_to "topへ", root_path
-  = link_to "施設ダッシュボード", dashboard_account_path(current_account)
-  = link_to "ログアウト", session_path(current_account), method: :delete
-  = link_to "アカウント設定へ", edit_account_path(current_account)
 
-- else
-  = link_to "ログイン", new_session_path
-  = link_to "アカウント作成", new_account_path
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow-sm
+  %button.navbar-toggler{"aria-controls" => "navbarTogglerDemo03", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarTogglerDemo03", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  = link_to root_path,{class: "navbar-brand"} do
+    %h1
+      Kaikai
+  #navbarTogglerDemo03.collapse.navbar-collapse
+    %ul.navbar-nav.ml-auto.mt-2.mt-lg-0
+
+      - if current_account
+        %li.nav-item.dropdown.active
+          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            アカウント
+          .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+            = link_to "ログアウト", session_path(current_account), method: :delete,class: "dropdown-item"
+            .dropdown-divider
+
+            = link_to "アカウント編集", edit_account_path(current_account),class: "dropdown-item"
+
+        %li.nav-item.active{style:"padding-right: 10px;"}
+          = link_to dashboard_account_path(current_account),{class: "nav-link" }do
+            ダッシュボードへ
+            %span.sr-only (current)
+          -# %a.nav-link{:href => "#"}
+          -#   ダッシュボードへ
+          -#   %span.sr-only (current)
+          -# = link_to dashboard_account_path(current_account),{},class: "nav-link" do
+          -#   %span.sr-only  ダッシュボードへ(current)
+
+      - else
+        %li.nav-item.active
+          %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "login", :type => "button"}
+            ログイン
+            %span.sr-only (current)
+        %li.nav-item.active{style:"padding-right: 10px;"}
+          %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "new", :type => "button"}
+            新規登録
+            %span.sr-only (current)
+
+        #exampleModalCenter.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalCenterTitle", :role => "dialog", :tabindex => "-1"}
+          .modal-dialog.modal-dialog-centered{:role => "document"}
+            %section.modal-content
+              .modal-header
+                -# %h5#exampleModalCenterTitle.modal-title ログイン
+                %ul.nav.nav-tabs
+                  %li.nav-item
+                    %a.nav-link.navbar-default.active.modal-login{"data-toggle" => "tab", :href => "#tab1"} ログイン
+                  %li.nav-item
+                    %a.nav-link.navbar-default.modal-new{"data-toggle" => "tab", :href => "#tab2"} 新規登録
+                %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                  %span{"aria-hidden" => "true"} ×
+              .modal-body
+                .tab-content
+                  %article#tab1.tab-pane.modal-login.active
+                    .form01
+                      .form-title
+                        %h4
+                          ログイン
+                      =form_for(:session, url: sessions_path,html: { class: 'login_form ajax-form ajax-validation'},data: { remote: true }) do |f|
+                        .form_item.need_item.v-input.v-need
+                          .labe_area
+                            = f.label :email, "メールアドレス"
+                          .input_area
+                            = f.email_field :email, class: 'form-control'
+                        .form_item.need_item.v-input.v-need
+                          .labe_area
+                            = f.label :password, "パスワード"
+                          .input_area
+                            = f.password_field :password, class: 'form-control'
+                        .form_item
+                          = f.label :remember_me, class: "checkbox inline" do
+                            = f.check_box :remember_me
+                            %span Remember me
+                        .form-error
+                        .form-submit
+                          = f.submit "Log in", class: "btn btn-warning submit_btn"
+                  %article#tab2.tab-pane.modal-new
+                    .form01
+                      .form-title
+                        %h4
+                          新規登録
+                      = form_for @account ,html: { class: 'signup_form ajax-form ajax-validation'},data: { remote: true } do |f|
+                        .form_item.need_item.v-input.v-email.v-need.v-max-50
+                          .labe_area
+                            = f.label :email, "メールアドレス"
+                          .input_area
+                            = f.email_field :email, class: 'form-control'
+                        .form_item.need_item.v-input.v-need.v-min-6.v-password
+                          .labe_area
+                            = f.label :password,"パスワード"
+                          .input_area
+                            = f.password_field :password, class: 'form-control'
+
+                        .form_item.need_item.v-input.v-password-re.v-need
+                          .label_area
+                            = f.label :password_confirmation, "パスワード確認"
+                          .input_area
+                            = f.password_field :password_confirmation, class: 'form-control'
+                        .form-error
+                        .form-submit
+                          = f.submit "アカウント作成", class: "btn btn-warning submit_btn"
+
+
+
 
 
 

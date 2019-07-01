@@ -1,3 +1,24 @@
 = provide(:title, "施設ダッシュボード")
 
 %h2 施設ダッシュボード
+
+.calender_area
+  #calendar
+
+
+.data_area
+  %p.date_area_content
+    %span.js-date-year
+      = Date.today.year
+    %span.js-date-month
+      = Date.today.month
+    %span.js-date-day
+      = Date.today.day
+
+
+%ul.js-use_user_lists
+  - @users.each do |user|
+    %li.js-use_user_lists_list
+      =user.name
+
+

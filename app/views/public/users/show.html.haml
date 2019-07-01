@@ -1,9 +1,9 @@
-= provide(:title, 'ユーザー登録')
+= provide(:title, 'ユーザー詳細')
 %section.dash_board_main
   .d_title01
     %h2
       %span
-        利用者登録
+        ユーザー詳細
   .dash_board_innner
     = form_for [current_account, @user], :builder => CustomFormBuilder,html: { class: 'ajax-validatio'} do |f|
       = render 'shared/error_messages', object: f.object
