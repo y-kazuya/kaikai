@@ -30,8 +30,16 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   namespace :api, {format: 'json'} do
+    post    "/login",                    to: "sessions#new"
+    post   "/signup",                   to: "sessions#create"
+
+    get    "/user_counts",                    to: "user_counts#index"
     get    "/note_categories",               to: "note_categories#index"
+    get    "/user_counts",                    to: "user_counts#index"
     post   "/create_note_category",         to: "note_categories#create"
     post   "/create_check",         to: "checks#create"
+
+    post   "/irregular_visits",         to: "irregular_visits#create"
+    delete "/irregular_visits",         to: "irregular_visits#destroy"
   end
 end
