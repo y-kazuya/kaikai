@@ -3,28 +3,45 @@ $(document).on('turbolinks:load', function(){
 
 
   function htmlUserEM(index) {
-    var html = `<div class="js-em-list">
-    <p class="js-remove_em">x</p>
+
+    var html = `<div class="js-em-list add_list display_none">
+    <p class="remove_content_text">
+      <span class="js-remove_em">X</span>
+    </p>
+    <div class="form-items">
+    <div class="my_grid grid-1-2-55">
+    <div class="my_grid_item">
     <div class="form_item need_item">
     <label for="user_emergency_contacts_attributes_${index}_name">名前</label>
-    <input type="text" name="user[emergency_contacts_attributes][${index}][name]" id="user_emergency_contacts_attributes_${index}_name">
+    <input class="form-control" type="text" name="user[emergency_contacts_attributes][${index}][name]" id="user_emergency_contacts_attributes_${index}_name">
     </div>
+    </div>
+    <div class="my_grid_item">
     <div class="form_item need_item">
-    <label for="user_emergency_contacts_attributes_${index}_relation">本人との続柄</label>
-    <input type="text" name="user[emergency_contacts_attributes][${index}][relation]" id="user_emergency_contacts_attributes_${index}_relation">
+    <label for="user_emergency_contacts_attributes_${index}_relation">続柄</label>
+    <input class="form-control small_input" type="text" name="user[emergency_contacts_attributes][${index}][relation]" id="user_emergency_contacts_attributes_${index}_relation">
     </div>
+    </div>
+    </div>
+    <div class="my_grid grid-1-2-55 my_grid-pc">
+    <div class="my_grid_item">
     <div class="form_item need_item">
     <label for="user_emergency_contacts_attributes_${index}_tel">電話番号</label>
-    <input type="number" name="user[emergency_contacts_attributes][${index}][tel]" id="user_emergency_contacts_attributes_${index}_tel">
+    <input class="form-control" type="number" name="user[emergency_contacts_attributes][${index}][tel]" id="user_emergency_contacts_attributes_${index}_tel">
     </div>
+    </div>
+    <div class="my_grid_item">
     <div class="form_item need_item">
     <label for="user_emergency_contacts_attributes_${index}_email">メールアドレス</label>
-    <input type="email" name="user[emergency_contacts_attributes][${index}][email]" id="user_emergency_contacts_attributes_${index}_email">
+    <input class="form-control" type="email" name="user[emergency_contacts_attributes][${index}][email]" id="user_emergency_contacts_attributes_${index}_email">
     </div>
-    <h5>住所</h5>
-    <div class="address_area">
+    </div>
+    </div>
+    <div class="address_area my_grid fit-grid-half">
+    <div class="my_grid_item">
+    <div class="form_item need_item">
     <label for="user_emergency_contacts_attributes_${index}_pref">都道府県</label>
-    <select class="form-control btn btn-info js-pref" name="user[emergency_contacts_attributes][${index}][pref]" id="user_emergency_contacts_attributes_${index}_pref"><option value="▼選択して下さい">▼選択して下さい</option>
+    <select class="form-control js-pref half_input" name="user[emergency_contacts_attributes][${index}][pref]" id="user_emergency_contacts_attributes_${index}_pref"><option value="▼選択して下さい">▼選択して下さい</option>
     <option value="北海道">北海道</option>
     <option value="青森県">青森県</option>
     <option value="岩手県">岩手県</option>
@@ -72,10 +89,21 @@ $(document).on('turbolinks:load', function(){
     <option value="宮崎県">宮崎県</option>
     <option value="鹿児島県">鹿児島県</option>
     <option value="沖縄県">沖縄県</option></select>
+    </div>
+    </div>
+    <div class="my_grid_item">
+    <div class="form_item need_item">
     <label for="user_emergency_contacts_attributes_${index}_city">市町村</label>
-    <select class="js-citys" data-city_name="" name="user[emergency_contacts_attributes][${index}][city]" id="user_emergency_contacts_attributes_${index}_city"></select>
+    <select class="form-control js-citys half_input" data-city_name="" name="user[emergency_contacts_attributes][${index}][city]" id="user_emergency_contacts_attributes_${index}_city"></select>
+    </div>
+    </div>
+    <div class="my_grid_item">
+    <div class="form_item">
     <label for="user_emergency_contacts_attributes_${index}_address">町名・番地</label>
     <input class="form-control" type="text" name="user[emergency_contacts_attributes][${index}][address]" id="user_emergency_contacts_attributes_${index}_address">
+    </div>
+    </div>
+    </div>
     </div>
     </div>`
 
@@ -90,19 +118,38 @@ $(document).on('turbolinks:load', function(){
       return false
     }
     target.append(htmlUserEM(index))
+    $('body').find('.js-em-list:last').animate( { opacity: 'show',}, { duration: 1000, easing: 'swing', } )
 
   }
 
   function removeUserEM(target) {
-    target.remove()
+    if(!confirm('本当に削除しますか？')){
+      return false;
+    }else{
+      target.remove()
+    }
   }
 
   $(".js-add_em").on("click", function(){
     addUserEM(this)
   })
 
-  $("form").on("click", ".js-remove_em", function(){
-    let target =$(this).parent(".js-em-list")
+  $("body").on("click", ".js-remove_em", function(){
+    let target = $(this).parents(".js-em-list")
+
     removeUserEM(target)
   });
+
+
+  $('body').on({
+    mouseenter: function() {
+      let target = $(this).parents(".js-em-list")
+      target.css("opacity", "0.6")
+    },
+    mouseleave: function() {
+      let target = $(this).parents(".js-em-list")
+      target.css("opacity", "1.0")
+    }
+  }, '.js-remove_em')
+
 });

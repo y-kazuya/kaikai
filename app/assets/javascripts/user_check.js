@@ -25,12 +25,13 @@ $(document).on('turbolinks:load', function(){
   }
 
   function appendCheck(data) {
-    html =`<div class="js-check_list">
-    <label for="user_check_ids_${data.id}"><input type="checkbox" value="${data.id}" name="user[check_ids][]" id="user_check_ids_${data.id}"></label>
-    <div class="check-list-name">
-    ${data.title}(${data.kind})
-    </div>
-    </div>`
+    html =`
+    <div class="js-check_list custom-control custom-radio my_grid_item">
+    <input class="custom-control-input" type="checkbox" value="${data.id}" name="user[check_ids][]" id="user_check_ids_${data.id}">
+    <label class="custom-control-label" for="user_check_ids_${data.id}">
+      ${data.title}(${data.kind})
+    </label></div>
+    `
 
     $(".js-check_lists").append(html)
   }

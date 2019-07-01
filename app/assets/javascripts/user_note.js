@@ -3,20 +3,23 @@ $(document).on('turbolinks:load', function(){
 
 
   function htmlUserNote(index) {
-    var html = `<div class="js-note-list">
-    <p class="js-remove_note">x</p>
+    var html = `<div class="js-note-list add_list display_none">
+    <p class="remove_content_text">
+      <span class="js-remove_note">X</span>
+    </p>
+    <div class="my_grid grid-1-2-28 my_grid-pc">
+    <div class="my_grid_item">
     <div class="form_item need_item">
-    <label for="user_notes_attributes_${index}_note_category_id">事柄のタイプを選択する</label>
-    <select class="form-control btn btn-info js-note_category_area" name="user[notes_attributes][${index}][note_category_id]" id="user_notes_attributes_${index}_note_category_id"><option value="">---未選択---</option>
-    </select>
+    <label for="user_notes_attributes_${index}_note_category_id">事柄のカテゴリ</label>
+    <select class="form-control js-note_category_area" name="user[notes_attributes][${index}][note_category_id]" id="user_notes_attributes_${index}_note_category_id"><option value="">---未選択---</option></select>
     </div>
-    <div class="form_item need_item">
-    <label for="user_notes_attributes_${index}_title">事柄</label>
-    <input type="text" name="user[notes_attributes][${index}][title]" id="user_notes_attributes_0_title">
     </div>
+    <div class="my_grid_item">
     <div class="form_item need_item">
-    <label for="user_notes_attributes_${index}_content"> 内容</label>
-    <textarea name="user[notes_attributes][${index}][content]" id="user_notes_attributes_0_content"></textarea>
+    <label for="user_notes_attributes_${index}_content">内容</label>
+    <textarea class="form-control" name="user[notes_attributes][${index}][content]" id="user_notes_attributes_0_content"></textarea>
+    </div>
+    </div>
     </div>
     </div>`
 
@@ -58,12 +61,17 @@ $(document).on('turbolinks:load', function(){
       return false
     }
     target.append(htmlUserNote(index))
+    $('body').find('.js-note-list:last').animate( { opacity: 'show',}, { duration: 1000, easing: 'swing', } )
     addUserNoteCategory()
 
   }
 
   function removeUserNote(target) {
-    target.remove()
+    if(!confirm('本当に削除しますか？')){
+      return false;
+    }else{
+      target.remove()
+    }
   }
 
   $(".js-add_note").on("click", function(){
@@ -71,7 +79,7 @@ $(document).on('turbolinks:load', function(){
   })
 
   $("form").on("click", ".js-remove_note", function(){
-    let target =$(this).parent(".js-note-list")
+    let target =$(this).parents(".js-note-list")
     removeUserNote(target)
   });
 ////////////////////////////////////////////////////////////
