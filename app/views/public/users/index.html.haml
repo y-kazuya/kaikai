@@ -1,10 +1,10 @@
 
-= provide(:title, 'ユーザー管理')
+= provide(:title, '利用者')
 %section.dash_board_main.user_index
   .d_title01
     %h2
       %span
-        ユーザー管理
+        利用者管理
   .dash_board_innner
     %p.add_content_text
       %span
@@ -26,14 +26,16 @@
                   = label :search, :age, "年齢"
                 .input_area.input_area-has_content
                   = number_field :search, :age, class: 'form-control d_ib small_input'
-                  %p
-                    %span
-                      歳以上
+                  = select :search, :age_and,[["歳以上", "more"], ["歳", "equall"], ["歳以下", "less"]],{}, {class: 'form-control d_ib small_input', style: "width: auto; min-width: 6rem;"}
           .form_item.my_grid.grid-many_items
             - User.weeks.each do |key, value|
               .custom-control.custom-radio.my_grid_item
                 = check_box :search,"use_#{value}",{class: "custom-control-input"}, true, false
                 = label :search,"use_#{value}","#{key}",class: "custom-control-label"
+
+          .form_item.u-tac.mt-10
+            %a.btn-square-so-pop 絞り込む
+
 
 
 
@@ -41,7 +43,7 @@
       .d_title02
         %h3
           %span
-            ユーザー一覧
+            利用者一覧
       .form-items
         %ul.users_lists
           - @users.each_with_index do |user,index|
