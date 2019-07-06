@@ -1,13 +1,18 @@
-= provide(:title, "アカウント編集")
+= provide(:title, 'アカウント編集')
+%section.dash_board_main
+  .d_title01
+    %h2
+      %span
+        アカウント編集
 
-%h2 アカウント編集
+  .dash_board_innner
+    = form_for @account,:builder => CustomFormBuilder  do |f|
+      = render 'shared/error_messages', object: f.object
+      .form_item.flex_form
+        = f.label :email
+        = f.email_field :email, class: 'form-control'
+      = f.submit "変更する", class: "btn btn-warning"
 
-= form_for @account,:builder => CustomFormBuilder  do |f|
-  = render 'shared/error_messages', object: f.object
-  = f.label :email
-  = f.email_field :email, class: 'form-control'
-  = f.submit "Create my account", class: "btn btn-primary"
-
-= link_to "パスワードの変更はこちら", new_password_reset_path
+    = link_to "パスワードの変更はこちら", new_password_reset_path
 
 

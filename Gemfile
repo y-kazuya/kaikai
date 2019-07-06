@@ -77,3 +77,4 @@ gem 'fullcalendar-rails'
 gem 'bootstrap4-datetime-picker-rails'
 gem 'whenever', require: false
 gem 'activerecord-import'
+gem 'ransack'

@@ -1,3 +1,40 @@
+
+
+
+.contact_page{
+  .box1{
+    margin-top: 50px;
+    textarea.big_input{
+      max-width: 100%;
+    }
+
+    .my_grid{
+      align-items: baseline;
+    }
+
+
+    .my_grid_item{
+      padding: 10px;
+    }
+
+
+
+  }
+
+  .box1_innner{
+
+
+  }
+}
+
+
+
+
+
+
+
+
+
 @media screen and ( max-width:650px )
 {
 .mv-title{
@@ -29,10 +66,10 @@
 
 .mv_area{
   width: 100%;
-  height:30vh;
-  background-size:  cover;
+  height: 33vh;
+  background-size: cover;
   background-color: #f26964;
-  max-height: 184px;
+  max-height: 208px;
   .mv-text_box{
     height: 100%;
     max-width: 1200px;
@@ -57,4 +94,10 @@
   position: absolute;
   top: 21%;
   margin-left: 10px;
+}
+
+.policy{
+  .section4{
+    margin-bottom: 50px;
+  }
 }

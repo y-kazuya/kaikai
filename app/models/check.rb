@@ -1,12 +1,14 @@
 class Check < ApplicationRecord
   belongs_to :facility, optional: true
   has_many :user_checks, dependent: :destroy
+  has_many :checks, dependent: :destroy
   has_many :users, through: :user_checks
+  has_many :user_check_histories, dependent: :destroy
 
   validates :title, presence: true
 
   validate :uniqe_public,on: :create
-  validate :uniqe_in_facility,on: :create
+  validate :uniqe_in_facility,on: :create, if: lambda { !self.public }
 
 
   enum kind: {

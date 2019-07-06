@@ -4,6 +4,11 @@ class Public::FacilitiesController < Public::ApplicationController
     @facility = current_facility
   end
 
+
+  def edit
+    @facility = current_facility
+  end
+
   def update
     @facility = current_facility
     if @facility.update_attributes(facility_params)

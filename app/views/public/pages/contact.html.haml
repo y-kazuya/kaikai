@@ -1,0 +1,72 @@
+= provide(:title, "お問い合わせ")
+
+.page_content.page_top.bg-gary.contact_page
+  %section.section1.width-100
+    .section2
+      .title01
+        %h3
+          %span
+            お問い合わせ
+      .container.sction4
+        .box1
+          .box1_innner
+            %p.content-text.content_area.u-tac
+              Kaikaiへの要望、質問、バグ報告などありましたら
+              %br
+              お気軽にお問い合わせください。
+            .my_grid.grid-1-2-55.my_grid-pc
+              .my_grid_item
+                = form_with scope: "contact", url: api_contact_path(),html: { class: 'ajax-form ajax-validation'}do |f|
+                  .form_items.section4
+                    .form_item.need_item.v-input.v-need
+                      .label_area
+                        = f.label :name, "お名前"
+                      .input_area
+                        = f.text_field :name, class: 'form-control'
+
+                    .form_item.need_item.v-input.v-need
+                      .label_area
+                        = f.label :email, "メールアドレス"
+                      .input_area
+                        = f.email_field :email, class: 'form-control'
+
+                    .form_item.need_item
+                      .label_area
+                        = f.label :kind, "お問い合わせカテゴリー"
+                      .input_area
+                        = f.select :kind,Contact.kinds.keys,{}, {class: 'form-control d_ib half_input'}
+
+                    .form_item.need_item
+                      .label_area
+                        = f.label :content, "お問い合わせ内容"
+                      .input_area
+                        = f.text_area :content, class: 'form-control big_input'
+                    .form_item
+                      = f.submit "送信する", class: "btn btn-warning"
+              .my_grid_item
+                .form_items.section4
+                  .title02
+                    %h4
+                      %span
+                        よくあるご質問
+                  %ul.content-lists
+                    %li.content_area
+                      .content-text
+                        %p
+                          Q1.どんなサービス？？
+                      .content-text
+                        %p
+                          介護施設(主にデイサービス)向けの情報管理サービスです！利用者様の細かな要望や、毎日のチェック項目を一括で管理できます。
+
+                    %li.content_area
+                      .content-text
+                        %p
+                          Q2.お金はかからない？
+                      .content-text
+                        %p
+                          無料です！
+
+
+
+
+

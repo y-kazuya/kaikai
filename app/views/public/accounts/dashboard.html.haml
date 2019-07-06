@@ -1,24 +1,29 @@
 = provide(:title, "施設ダッシュボード")
 
-%h2 施設ダッシュボード
 
-.calender_area
-  #calendar
+#dashdash
+  %section.dash_board_main
+    .d_title01
+      %h2
+        %span
+          ダッシュボード
+    .dash_board_innner
+      .calender_area
+        #calendar
 
+      %article
+        .d_title02
+          %h3
+            %span.js-date-year
+              = "#{Date.today.year}年"
+            %span.js-date-month
+              = "#{Date.today.month}月"
+            %span.js-date-day
+              = "#{Date.today.day}日"
+            %span.js-date-text
+              本日の利用予定者
 
-.data_area
-  %p.date_area_content
-    %span.js-date-year
-      = Date.today.year
-    %span.js-date-month
-      = Date.today.month
-    %span.js-date-day
-      = Date.today.day
-
-
-%ul.js-use_user_lists
-  - @users.each do |user|
-    %li.js-use_user_lists_list
-      =user.name
+    .form-items#js-user_lists
+      = render partial: 'shared/user_cards', locals: { users: @users }
 
 

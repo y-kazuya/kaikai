@@ -13,9 +13,11 @@
     <div class="wapper">
       <%= render 'layouts/header' %>
 
+      <div id="js-flash_messages"></div>
       <% flash.each do |message_type, message| %>
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>
+
         <%- unless controller.controller_name == "pages"%>
           <div class="main-page">
             <%= render 'layouts/sidebar' %>
@@ -26,6 +28,7 @@
         <%- else %>
           <%= yield %>
         <%- end %>
+
       <%= render 'layouts/fotter' %>
     </div>
   </body>

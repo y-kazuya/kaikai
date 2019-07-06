@@ -92,6 +92,11 @@
   grid-column-gap: 50px;
 }
 
+.my_grid_item{
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
 .form-items .my-grid-gap0{
   grid-column-gap: 0px;
   align-items: flex-end;
@@ -179,6 +184,14 @@
 
 .grid-many_items{
   grid-template-columns: repeat(auto-fill, 88px);
+}
+
+.grid-many_items-130 {
+  grid-template-columns: repeat(auto-fill, 130px);
+}
+
+.grid-many_items-170{
+  grid-template-columns: repeat(auto-fill, 170px);
 }
 
 .grid-many_items-300{
@@ -282,6 +295,11 @@
   margin-bottom: 15px;
 }
 
+.media .media-body{
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
 .box2 .media p{
   margin-bottom: 5px;
 }
@@ -289,6 +307,20 @@
 .box2 .media h5 p{
   font-size: 18px;
   font-weight: bold;
+}
+
+.box2_item{
+  margin-bottom: 10px;
+}
+
+.box2_innner{
+  position: relative;
+  z-index: 0;
+}
+
+.font-item{
+  position: relative;
+  z-index: 100;
 }
 
 .user_card{
@@ -303,11 +335,26 @@
 
 .user_more_info{
   position: absolute;
-  bottom: 0;
+  bottom: -21px;
   right: 10px;
   z-index: 1000;
 }
 
+
+.users_list .user_coming:after{
+  content: "利用なし";
+  margin-left: -5px;
+}
+
+.users_list .active{
+  border: 2px solid $color-sub;
+
+  .user_coming::after{
+    content: "利用予定";
+    color: $color-sub-sub;
+  }
+
+}
 .innner_box{
   margin-bottom: 25px;
 }
@@ -328,4 +375,17 @@
     height: 60px !important;
   }
 
+}
+
+
+
+
+.js-opacity-target{
+  transition-duration: 800ms;
+  -webkit-transition-duration: 800ms;
+  opacity: 0.0;
+}
+
+.js-opacity-target.active{
+  opacity: 1.0
 }

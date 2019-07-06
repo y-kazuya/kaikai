@@ -37,11 +37,43 @@ class Facility < ApplicationRecord
   }
 
 
-  def use_users(day = today, facility = self)
+  def use_users(day = Date.today, facility = self, q = true)
+    begin
+      day = Date.parse(day) unless day.class == Date
+    rescue
+      return []
+    end
+    day -= 1 if q && Time.now.hour == 0 && Time.now.min < 31
     weekday = %w(sun mon tue wed thu fri sat)[day.wday]
-    weekday_facility_user = self.users.where("use_#{weekday} = true")
-    irr_coming_user = self.users.joins(:irregular_visits).where(irregular_visits: {date: day, coming: true})
+    coming_user = self.users.includes(:irregular_visits).where("((use_#{weekday} = ?) or (irregular_visits.date = ? and  irregular_visits.coming = ?))", true, day, true).references(:irregular_visits)
+
     irr_noncoming_user =  self.users.joins(:irregular_visits).where(irregular_visits: {date: day, coming: false})
-    @users = weekday_facility_user - irr_noncoming_user + irr_coming_user
+    @users = coming_user - irr_noncoming_user
   end
+
+  def used_histories(day = Date.today, facility = self, q = true)
+    begin
+      day = Date.parse(day) unless day.class == Date
+    rescue
+      return []
+    end
+    day -= 1 if q && Time.now.hour == 0 && Time.now.min < 31
+
+    @user_histories = UserHistory.includes(:user).where("(users.facility_id = ?) and (date = ?) and (coming = ?)", facility.id, day, true).references(:users)
+  end
+
+  def used_users(day = Date.today, facility = self, q = true)
+    begin
+      day = Date.parse(day) unless day.class == Date
+    rescue
+      return []
+    end
+    day -= 1 if q && Time.now.hour == 0 && Time.now.min < 31
+    @users = User.includes(:user_histories).where("(facility_id = ?) and (user_histories.date = ?) and (user_histories.coming = ?)", facility.id, day, true).references(:user_histories)
+  end
+
+
+
+
+
 end

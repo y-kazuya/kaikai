@@ -1,4 +1,26 @@
 .footer
   .section1
-    .content-title.u-tac
-      お問い合わせ
+    .col
+      %ul.footer_links
+        %li
+          =link_to "TOP",root_path
+
+        - if current_account
+          = link_to "ダッシュボード", dashboard_account_path(current_account)
+
+        - else
+          %li
+            %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "login", :type => "button"}
+              ログイン
+          %li
+            %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "new", :type => "button"}
+              新規登録
+        %li
+          =link_to "お問い合わせ", contact_path
+
+        %li
+          =link_to "プライバシーポリシー",  policy_path
+
+    .col
+      %p
+        Copyright © 2019 Kaikai.Co.LTE

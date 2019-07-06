@@ -1,0 +1,9 @@
+
+
+<% flash.each do |type, message| %>
+
+  $("#js-flash_messages").html("<div class='alert alert-<%= type %> alert-dismissible' role='alert'><button class='close' data-dismiss='alert'>×</button><%= message.html_safe %></div>")
+<% end %>
+
+$("#js-irr_comings").html("<%= escape_javascript(render partial: 'shared/user_irr_days', collection: @user.future_irregular_visits(true), as: :day)%>");
+$("#js-irr_no_comings").html("<%= escape_javascript(render partial: 'shared/user_irr_days', collection: @user.future_irregular_visits(false), as: :day)%>");

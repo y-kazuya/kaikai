@@ -4,6 +4,13 @@
     %h2
       %span
         利用者登録
+
+
+    %ul.bread_lists
+      %li
+        = link_to account_users_path(current_account),class: "btn-partial-line" do
+          %i.fa.fa-caret-left
+          利用者一覧へ
   .dash_board_innner
     = form_for [current_account, @user], :builder => CustomFormBuilder,html: { class: 'ajax-validatio'} do |f|
       = render 'shared/error_messages', object: f.object

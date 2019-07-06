@@ -17,6 +17,14 @@
   max-width: 150px;
 }
 
+textarea.big_input{
+  min-width: 100px;
+  width: 800px;
+  max-width: 80%;
+  height: 300px;
+  max-height: 40vh;
+}
+
 .form-card{
   margin-bottom: 50px;
 }
@@ -52,6 +60,10 @@
     margin-bottom: 15px;
     font-size: 20px;
   }
+}
+
+.form-content-title + *{
+  padding-left: 0.4rem;
 }
 
 
@@ -239,6 +251,20 @@
 }
 
 
+.date-picker_area {
+  .flex_form {
+    align-items: normal;
+    label{
+      padding-top: 6px;
+    }
+  }
+
+  .my_grid{
+    margin-bottom: 20px;
+  }
+}
+
+
 
 
 @keyframes bib {
@@ -275,6 +301,9 @@
   .small_input{
     min-width: 60px;
     max-width: 80px;
+  }
+  .small_input-spmax{
+    max-width: 50%;
   }
 
   .form01{

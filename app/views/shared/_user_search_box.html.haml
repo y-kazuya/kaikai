@@ -1,0 +1,28 @@
+%article.box1
+  .box1_innner
+    = form_with scope: "search", url: api_account_users_search_path(current_account),method: "get" do |us|
+      .form_items
+        .my_grid.grid-1-2-55.my_grid-pc
+          .my_grid_item
+            .form_item
+              .labe_area
+                = us.label :name_cont, "名前"
+              .input_area
+                = us.text_field :name_cont, class: 'form-control',id: "search_name_cont"
+          .my_grid_item
+            .form_item
+              .labe_area
+                = us.label :age, "年齢"
+              .input_area.input_area-has_content
+                = us.number_field :age, class: 'form-control d_ib small_input',id: "search_age"
+                = us.select :forage,[["歳以上", "age_gteq"], ["歳", "age_eq"], ["歳以下", "age_lteq"]],{}, {class: 'form-control d_ib small_input', style: "width: auto; min-width: 6rem;"}
+        .form_item.my_grid.grid-many_items
+          - User.weeks.each do |key, value|
+            .custom-control.custom-radio.my_grid_item
+              -# = us.check_box "weeks[]",{class: "custom-control-input",id: "search_[weeks][use_#{value}]"},"use_#{value}", ""
+              = us.check_box(:weeks, {:multiple => true ,class: "custom-control-input",id: "search_[weeks][use_#{value}]"}, "use_#{value}", nil)
+              = us.label "[weeks][use_#{value}]","#{key}",class: "custom-control-label"
+
+        .form_item.u-tac.mt-10
+          -# %a.btn-square-so-pop 絞り込む
+          = us.submit "絞り込む", class: "btn btn-square-so-pop"

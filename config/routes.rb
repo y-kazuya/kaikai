@@ -13,12 +13,15 @@ Rails.application.routes.draw do
   scope module: :public do
 
     get    '/accounts',    to: 'accounts#new'
+    get    "/contact",         to: "pages#contact"
+    get    "/policy",         to: "pages#policy"
+    get    "/about",          to: "pages#about"
     resources :accounts, except: [:index] do
       member do
         get :dashboard
       end
-      resource :facilities, only: [:show,:update]
-      resources :users, only: [:index,:new,:create,:show,:update,:destroy]
+      resource :facilities, only: [:show,:edit,:update]
+      resources :users, only: [:index,:new,:edit,:create,:show,:update,:destroy]
 
     end
 
@@ -29,7 +32,15 @@ Rails.application.routes.draw do
 
   resources :password_resets, only: [:new, :create, :edit, :update]
 
-  namespace :api, {format: 'json'} do
+  namespace :api, {format: 'js'} do
+    get    "/accounts/:id/users/search", to: "users#serach", as: "account_users_search"
+    post   "/users/:id/add_irr_day", to: "users#add_irr_day", as: "users_add_irr_day"
+    post   "/contact",         to: "pages#create_contact"
+
+    patch   "/users/:user_id/user_history/:id", to: "user_histories#update", as: "update_user_history"
+  end
+
+  namespace :api, {format: 'json'} do #####pure_api
     post    "/login",                    to: "sessions#new"
     post   "/signup",                   to: "sessions#create"
 

@@ -7,62 +7,86 @@
       %span
         施設情報
   .dash_board_innner
-    = form_for @facility ,url: account_facilities_path(@facility),:builder => CustomFormBuilder do |f|
-      = render 'shared/error_messages', object: f.object
-      %article.form-card
-        .d_title02
-          %h3
-            %span
-              基本情報
-        .form-items
-          .my_grid.grid-1-2-maxauto
-            .my_grid_item
+    = link_to edit_account_facilities_path(current_account) do
+      %p.add_content_text
+        %span
+          施設情報を編集する▷
+    %article.form-card
+      .d_title02
+        %h3
+          %span
+            基本情報
+      .form-items
+        .my_grid.grid-1-2-maxauto
+          .my_grid_item
+            .form-content-title
+              %h4
+                %span
+                  写真
+            .form_item.picture_field.form-group
+              = image_tag(preview_picture_image(@facility), class: "picture_preview")
+
+          .my_grid_item
+            .form_item.innner-item
               .form-content-title
-                %h4.need_item
+                %h4
                   %span
-                    写真
-              .form_item.picture_field.form-group
-                = f.label :image do
-                  = image_tag(preview_picture_image(@facility), class: "picture_preview")
+                    施設名
+              .input_area
+                = "#{@facility.name}"
 
-                = f.file_field :image, class: "display_none image"
-            .my_grid_item
-              .form_item.need_item.innner-item
-                .label_area
-                  = f.label :name, "施設名"
-                .input_area
-                  = f.text_field :name, class: 'form-control'
-
-              .form_item.innner-item
-                .label_area
-                  = f.label :url, "ホームページ"
-                .input_area
-                  = f.text_field :url, class: 'form-control'
+            .form_item.innner-item
+              .form-content-title
+                %h4
+                  %span
+                    ホームページ
+              .input_area
+                - if @facility.url
+                  = link_to "#{@facility.url}",@facility.url,target: :_blank
 
 
-          .my_grid.grid-1-2-55.my_grid-pc
-            .my_grid_item
-              .form_item
-                = f.label :tel, "電話番号"
-                = f.number_field :tel, class: 'form-control'
-            .my_grid_item
-              .form_item
-                = f.label :email, "メールアドレス"
-                = f.email_field :email, class: 'form-control'
 
-          .address_area.my_grid.fit-grid-half
-            .my_grid_item
-              .form_item.need_item
-                = f.label :pref, "都道府県"
-                = f.select :pref, Facility.prefs.keys.to_a, {}, class: 'form-control js-pref half_input'
+        .my_grid.grid-1-2-55.my_grid-pc
+          .my_grid_item
+            .form_item
+              .form-content-title
+                %h4
+                  %span
+                    電話番号
+              .input_area
+                = "#{@facility.tel}"
+          .my_grid_item
+            .form_item
+              .form-content-title
+                %h4
+                  %span
+                    メールアドレス
+              .input_area
+                = "#{@facility.email}"
 
-            .my_grid_item
-              .form_item.need_item
-                = f.label :city ,"市町村"
-                = f.select :city, "aa", {prompt: "都道府県を選択してください"}, {class: "form-control js-citys half_input", "data-city_name" => "#{@facility.city || ``}"}
-            .my_grid_item
-              .form_item
-                = f.label :address ,"町名・番地"
-                = f.text_field :address, class: 'form-control'
+        .address_area.my_grid.fit-grid-half
+          .my_grid_item
+            .form_item
+              .form-content-title
+                %h4
+                  %span
+                    都道府県
+              .input_area
+                = "#{@facility.pref}"
 
-      = f.submit "利用者を保存する", class: "btn btn-warning"
+          .my_grid_item
+            .form_item
+              .form-content-title
+                %h4
+                  %span
+                    市町村
+              .input_area
+                = "#{@facility.city}"
+          .my_grid_item
+            .form_item
+              .form-content-title
+                %h4
+                  %span
+                    町名・番地
+              .input_area
+                = "#{@facility.address}"

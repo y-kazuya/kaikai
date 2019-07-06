@@ -11,4 +11,14 @@ $(document).on('turbolinks:load', function(){
 
   }
 
+  $('#js-flash_messages').on('DOMSubtreeModified propertychange', function() {
+    setTimeout(function(){
+      $('#js-flash_messages').find(".alert").addClass("removeAlert")
+    },2000);
+
+    setTimeout(function(){
+      $('#js-flash_messages').find(".alert").css("display", "none")
+    },3400);
+  });
+
 });
