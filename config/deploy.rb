@@ -17,12 +17,20 @@ set :deploy_to, '/var/www/kaikai'
 set :linked_files, fetch(:linked_files, []).push('config/settings.yml')
 
 # シンボリックリンクをはるフォルダ。(※後述)
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
 # 保持するバージョンの個数(※後述)
 set :keep_releases, 5
 
+set :ssh_options, auth_methods: ['publickey'],
+                  keys: ["/Users/kazuya/.ssh/kaikai_pro.pem"]
+
+set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
+set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
+set :keep_releases, 5
+
 # rubyのバージョン
+set :rbenv_type, :user
 set :rbenv_ruby, '2.5.3'
 
 #出力するログのレベル。
