@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: kaikai_production
-  username: kaikai
-  password: <%= ENV['KAIKAI_DATABASE_PASSWORD'] %>
+  username: root
+  password:
