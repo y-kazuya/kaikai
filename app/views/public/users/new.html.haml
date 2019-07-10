@@ -61,7 +61,7 @@
                 = f.label :birth_day, "日"
                 = f.select :birth_day,(1..12), {prompt: "▼選択して下さい"},{class: "js-days form-control", "data-birth_day" => "#{@user.birth_day || ``}"}
 
-          .my_grid.grid-1-2-28
+          .my_grid.grid-1-2-37
             .my_grid_item
               .form-content-title
                 %h4.need_item
@@ -189,7 +189,7 @@
                 = select :check_kind,"aa", [["テキストタイプ", 0],["チェックタイプ",1]],{},{class: "js-check_kind_field form-control" }
             .my_grid_item
               .form_item
-                = text_field :check_title, {},{class: "form-control js-check_name_field d_ib"}
+                = text_field :check_title, {},{class: "form-control js-check_name_field d_ib" ,style: "max-width: 80%;"}
                 %p.add_content_text.d_ib.mb-0
                   %span{class: "js-add_check"} 追加
 
