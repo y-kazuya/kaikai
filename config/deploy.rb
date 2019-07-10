@@ -4,6 +4,12 @@ lock "~> 3.11.0"
 # デプロイするアプリケーション名
 set :application, 'mumu'
 
+set :default_env, {
+  AWS_ACCESS_KEY_ID: ENV["AWS_ACCESS_KEY_ID"],
+  AWS_SECRET_ACCESS_KEY: ENV["AWS_SECRET_ACCESS_KEY"],
+  AWS_REGION: ENV["AWS_REGION"]
+}
+
 # cloneするgitのレポジトリ
 set :repo_url, 'git@github.com:y-kazuya/kaikai.git'
 
