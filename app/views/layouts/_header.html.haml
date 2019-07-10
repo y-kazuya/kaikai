@@ -1,6 +1,6 @@
 
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow-sm
-  %button.navbar-toggler{"aria-controls" => "navbarTogglerDemo03", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarTogglerDemo03", "data-toggle" => "collapse", :type => "button"}
+  %button.navbar-toggler{"aria-controls" => "navbarTogglerDemo03", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarTogglerDemo03", "data-toggle" => "collapse"}
     %span.navbar-toggler-icon
   = link_to root_path,{class: "navbar-brand"} do
     %h1
@@ -10,7 +10,7 @@
 
       - if current_account
         %li.nav-item.dropdown.active
-          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#"}
             アカウント
           .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
             = link_to "ログアウト", session_path(current_account), method: :delete,class: "dropdown-item"
@@ -30,11 +30,11 @@
 
       - else
         %li.nav-item.active
-          %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "login", :type => "button"}
+          %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "login"}
             ログイン
             %span.sr-only (current)
         %li.nav-item.active{style:"padding-right: 10px;"}
-          %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "new", :type => "button"}
+          %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "new"}
             新規登録
             %span.sr-only (current)
       %li.nav-item.active
@@ -52,7 +52,7 @@
                     %a.nav-link.navbar-default.active.modal-login{"data-toggle" => "tab", :href => "#tab1"} ログイン
                   %li.nav-item
                     %a.nav-link.navbar-default.modal-new{"data-toggle" => "tab", :href => "#tab2"} 新規登録
-                %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                %button.close{"aria-label" => "Close", "data-dismiss" => "modal"}
                   %span{"aria-hidden" => "true"} ×
               .modal-body
                 .tab-content
