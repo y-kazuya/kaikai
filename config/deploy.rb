@@ -12,7 +12,8 @@ set :branch, 'master'
 
 # deploy先のディレクトリ。
 set :deploy_to, '/var/www/rails/kaikai'
-set :whenever_command, "bundle exec whenever"
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
 
 
 
