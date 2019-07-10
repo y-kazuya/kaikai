@@ -1,0 +1,8 @@
+
+%ul.users_lists#js-user_list.js-opacity-target.js-active_target
+  - today = Date.today
+  - today -= 1 if Time.now.hour == 0 && Time.now.min < 31
+  - if @date ||= today
+    = render partial: 'shared/user_card', collection: users, as: :user, locals: { date: @date, today: today}
+
+-# dateが存在している→既にその日に関連づけられている（予定利用者、過去利用者)

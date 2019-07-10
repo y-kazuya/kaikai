@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190630094354) do
+ActiveRecord::Schema.define(version: 20190703143827) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 20190630094354) do
     t.datetime "updated_at", null: false
     t.boolean "public", null: false
     t.index ["facility_id"], name: "index_checks_on_facility_id"
+  end
+
+  create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "email"
+    t.text "content"
+    t.integer "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "emergency_contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -109,11 +118,13 @@ ActiveRecord::Schema.define(version: 20190630094354) do
     t.text "text_content"
     t.boolean "check_content"
     t.bigint "user_history_id", null: false
-    t.bigint "user_check_id", null: false
+    t.bigint "check_id", null: false
+    t.bigint "user_check_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["check_id"], name: "index_user_check_histories_on_check_id"
     t.index ["user_check_id"], name: "index_user_check_histories_on_user_check_id"
-    t.index ["user_history_id", "user_check_id"], name: "index_user_check_histories_on_user_history_id_and_user_check_id", unique: true
+    t.index ["user_history_id", "check_id"], name: "index_user_check_histories_on_user_history_id_and_check_id", unique: true
     t.index ["user_history_id"], name: "index_user_check_histories_on_user_history_id"
   end
 
@@ -133,6 +144,7 @@ ActiveRecord::Schema.define(version: 20190630094354) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "coming", default: true, null: false
     t.index ["user_id", "date"], name: "index_user_histories_on_user_id_and_date", unique: true
     t.index ["user_id"], name: "index_user_histories_on_user_id"
   end
@@ -168,7 +180,8 @@ ActiveRecord::Schema.define(version: 20190630094354) do
   add_foreign_key "note_categories", "facilities"
   add_foreign_key "notes", "note_categories"
   add_foreign_key "notes", "users"
-  add_foreign_key "user_check_histories", "user_checks"
+  add_foreign_key "user_check_histories", "checks"
+  add_foreign_key "user_check_histories", "user_checks", on_delete: :nullify
   add_foreign_key "user_check_histories", "user_histories"
   add_foreign_key "user_checks", "checks"
   add_foreign_key "user_checks", "users"

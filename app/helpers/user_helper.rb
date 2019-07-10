@@ -30,4 +30,25 @@ module UserHelper
     end
     return summary
   end
+
+  def refine_user_check(user)
+    summary = {}
+    user.checks.each do |uc|
+      if summary["#{uc.kind}"]
+        summary["#{uc.kind}"] << uc
+      else
+        summary["#{uc.kind}"] = [uc]
+      end
+    end
+    return summary
+  end
+
+  def get_week_day(day = Date.today)
+    return %w(日 月 火 水 木 金 土)[day.wday]
+  end
+
+  def revive_active_record(arr)
+    return [] unless arr.length > 0
+    arr.first.class.where(id: arr.map(&:id)).with_info
+  end
 end

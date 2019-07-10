@@ -1,7 +1,11 @@
 class Public::UsersController < Public::ApplicationController
 
+  before_action -> {
+    check_auth_account_info(params[:account_id])
+  }
+
   def index
-    @users = current_facility.users
+    @users = current_facility.users.with_info
   end
 
   def new
@@ -26,15 +30,21 @@ class Public::UsersController < Public::ApplicationController
     end
   end
 
-  def show
+  def edit
     @user = User.find(params[:id])
     @user.emergency_contacts.build if @user.emergency_contacts == []
     @user.notes.build if @user.notes == []
     @user.user_checks.build if @user.user_checks == []
   end
 
+  def show
+    @user = User.find(params[:id])
+    check_auth_account_info(@user.facility.account.id)
+  end
+
   def update
     @user = User.find(params[:id])
+
     if @user.update_attributes(user_params)
       flash[:success] = "ユーザー情報を編集しました"
       redirect_to account_user_path(current_account, @user.id)

@@ -17,4 +17,22 @@ class Public::ApplicationController < ApplicationController
       end
     end
 
+    def check_account_faclity(faclity)
+      unless current_account || current_account.id == facility.account.id
+        redirect_to root_path
+      end
+    end
+
+    def chekc_item__facility(item)
+      unless current_facility || current_facility.id == item.facility.id
+        redirect_to root_path
+      end
+    end
+
+    def check_auth_account_info(param_id = params[:id])
+      if !current_account || current_account.id != param_id.to_i
+        redirect_to root_path
+      end
+    end
+
 end

@@ -1,10 +1,20 @@
 .calender_area{
-  width: 60%;
   margin: 50px auto;
 }
 
 #calendar{
 
+}
+
+.user_counts{
+  position: relative;
+  z-index: -10;
+}
+
+.fc-center{
+  h2{
+    font-size: 24px;
+  }
 }
 
 

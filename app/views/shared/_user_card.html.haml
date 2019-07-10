@@ -1,0 +1,182 @@
+%li.users_list
+  .box2.user_card{class: [user.has_today_date? && date == today ? "active" : ""]}
+    .box2_innner
+      .box2_item.btn-area{"aria-controls" => "multiCollapseExample1", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#user_info_#{user.id}", :role => "button"}
+        .media
+          = image_tag(preview_picture_image(user), class: "picture_preview rounded-circle avatar mr-3")
+          .media-body
+            %h5.mt-0
+              %p
+                = "#{user.name}さん（#{user.age}）"
+            %p
+              ="要介護度：#{user.care_level_before_type_cast || "0"}"
+              - if date == today
+                %br.u-sp
+                、本日：
+                %span.user_coming
+
+              - if date < today
+                %br.u-sp
+                  - if user.past_used?(date)
+                    出席
+                  -else
+                    欠席
+
+
+            %p
+              ="主な利用曜日：#{get_use_weeks(user)}"
+      .box2_item
+        %p.user_more_info
+          %a{"aria-controls" => "multiCollapseExample1", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#user_info_#{user.id}", :role => "button"}
+            詳しく見る▽
+          = link_to "詳細ページへ", account_user_path(current_account, user.id),class: "ml-10"
+
+      .box2_accordion
+        .collapse.multi-collapse{id: "user_info_#{user.id}"}
+          .innner_box
+            .d_title03
+              %h4
+                %span
+                  留意事項
+            %ul.box2_items
+              -refine_user_note(user).each do |key, value|
+                %li
+                  .box2_item.d_title04
+                    %span
+                      ="#{key}"
+                  %ul.note-list
+                    - value.each do |un|
+                      %li
+                        .box2_item
+                          %span
+                            = un.content
+          - if date == today && user.has_today_date? ##今日利用のユーザー、フォーむにゅりょく
+            = form_with model: [user,user.today_date],url: api_update_user_history_path(user, user.today_date) do |f_u_h|
+              .innner_box
+                .d_title03
+                  %h4
+                    %span
+                      本日のチェック事項
+                ///#TODO この項目を出すのは当日の人のみ。当時の人は、枠の色を変えたりしてわかりやすく
+
+                %ul.box2_items
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        テキストタイプ
+                    - f_u_h.object.user_check_histories.each do |u_c_h|
+
+                      %ul.note-list
+                        = f_u_h.fields_for :user_check_histories, u_c_h do |f_u_c_h|
+                          %li
+                            - if u_c_h.user_check && u_c_h.user_check.check.kind == "テキストタイプ"
+                              .box2_item.custom-radio.flex_form.font-item
+                                = f_u_c_h.label :text_content, "#{u_c_h.user_check.check.title}",for: "#{user.id}_#{u_c_h.id}"
+                                = f_u_c_h.text_field :text_content, {class: 'form-control',id: "#{user.id}_#{u_c_h.id}"}
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        チェックボックス
+                    - f_u_h.object.user_check_histories.each do |u_c_h|
+                      %ul.note-list
+                        = f_u_h.fields_for :user_check_histories, u_c_h  do |f_u_c_h|
+                          %li
+                            - if u_c_h.user_check && u_c_h.user_check.check.kind == "チェックボックス"
+                              .box2_item.custom-control.custom-radio.flex_form.font-item
+                                = f_u_c_h.check_box :check_content, {class: "custom-control-input",id: "#{user.id}_#{u_c_h.id}"},1, 0
+                                = f_u_c_h.label :check_content, "#{u_c_h.user_check.check.title}",for: "#{user.id}_#{u_c_h.id}",class: "custom-control-label"
+
+              .innner_box
+                .d_title03
+                  %h4
+                    %span
+                      本日の記録
+                .box2_items
+                  = f_u_h.text_area :content, {class: 'form-control big_input'}
+                .form_item.flex_form
+                  .custom-control.custom-radio
+                    = f_u_h.radio_button :coming, true,{class:"custom-control-input",checked: "checked", id:"#{user.id}_u_h_coming_true"}
+                    = f_u_h.label :coming, "出席", for: "#{user.id}_u_h_coming_true",class: "custom-control-label"
+                  .custom-control.custom-radio
+                    = f_u_h.radio_button :coming, false,{class:"custom-control-input", id:  "#{user.id}_u_h_coming_false"}
+                    = f_u_h.label :coming, "欠席",for: "#{user.id}_u_h_coming_false",class: "custom-control-label"
+
+                  = f_u_h.submit "保存する", class: "btn btn-warning"
+
+
+          - else
+            - if today > date && user.past_used?(date) ##昔利用したユーザー、履歴表示
+              - user_history = user.past_use_date(date)
+
+              .innner_box
+                .d_title03
+                  %h4
+                    %span
+                      チェック事項
+                %ul.box2_items
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        テキストタイプ
+                    - user_history.user_check_histories.each do |u_c_h|
+                      %ul.note-list
+                        %li
+                          - if u_c_h.user_check && u_c_h.user_check.check.kind == "テキストタイプ"
+                            .box2_item.custom-radio.flex_form.font-item
+                              =  "#{u_c_h.user_check.check.title}"
+                              = u_c_h.text_content
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        チェックボックス
+                    - user_history.user_check_histories.each do |u_c_h|
+                      %ul.note-list
+                        %li
+                          - if u_c_h.user_check && u_c_h.user_check.check.kind == "チェックボックス"
+                            .box2_item.custom-control.custom-radio.flex_form.font-item
+                              = "#{u_c_h.user_check.check.title}："
+                              =  u_c_h.check_content ? "○" : "×"
+
+
+              .innner_box
+                .d_title03
+                  %h4
+                    %span
+                      記録
+                .form_item
+                  = user_history.coming ? "出席" : "欠席"
+                .box2_items
+                  = user_history.content
+
+
+
+
+            - else
+              .innner_box
+                .d_title03
+                  %h4
+                    %span
+                      チェック事項
+                %ul.box2_items
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        テキストタイプ
+                    - user.user_checks.each do |u_c|
+                      %ul.note-list
+                        %li
+                          - if u_c.check.kind == "テキストタイプ"
+                            .box2_item.custom-radio.flex_form.font-item
+                              =  "#{u_c.check.title}"
+
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        チェックボックス
+                    - user.user_checks.each do |u_c|
+                      %ul.note-list
+                        %li
+                          - if u_c.check.kind == "チェックボックス"
+                            .box2_item.custom-radio.flex_form.font-item
+                              = "#{u_c.check.title}"
+

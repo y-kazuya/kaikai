@@ -37,6 +37,10 @@
           %a.nav-link.auth_modal{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", "data-type" => "new", :type => "button"}
             新規登録
             %span.sr-only (current)
+      %li.nav-item.active
+        = link_to contact_path,{class: "nav-link" }do
+          お問い合わせ
+          %span.sr-only (current)
 
         #exampleModalCenter.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalCenterTitle", :role => "dialog", :tabindex => "-1"}
           .modal-dialog.modal-dialog-centered{:role => "document"}
@@ -57,7 +61,7 @@
                       .form-title
                         %h4
                           ログイン
-                      =form_for(:session, url: sessions_path,html: { class: 'login_form ajax-form ajax-validation'},data: { remote: true }) do |f|
+                      =form_for(:session , url: sessions_path,html: { class: 'login_form ajax-form ajax-validation'},data: { remote: true }) do |f|
                         .form_item.need_item.v-input.v-need
                           .labe_area
                             = f.label :email, "メールアドレス"
@@ -80,7 +84,7 @@
                       .form-title
                         %h4
                           新規登録
-                      = form_for @account ,html: { class: 'signup_form ajax-form ajax-validation'},data: { remote: true } do |f|
+                      = form_for Account.new ,html: { class: 'signup_form ajax-form ajax-validation'},data: { remote: true } do |f|
                         .form_item.need_item.v-input.v-email.v-need.v-max-50
                           .labe_area
                             = f.label :email, "メールアドレス"

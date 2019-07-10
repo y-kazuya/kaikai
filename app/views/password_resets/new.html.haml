@@ -1,9 +1,17 @@
 
-= provide(:title, "Forgot password")
-%h1 パスワード再設定
 
-= form_for(:password_reset, url: password_resets_path) do |f|
-  = f.label :email
-  = f.email_field :email, class: 'form-control'
+= provide(:title, 'パスワード再設定')
+%section.dash_board_main
+  .d_title01
+    %h2
+      %span
+        パスワード再設定
 
-  = f.submit "Submit", class: "btn btn-primary"
+  .dash_board_innner
+
+    = form_for(:password_reset, url: password_resets_path) do |f|
+      .form_item.flex_form.need_item
+        = f.label :email
+        = f.email_field :email, class: 'form-control'
+
+      = f.submit "送信", class: "btn btn-warning"

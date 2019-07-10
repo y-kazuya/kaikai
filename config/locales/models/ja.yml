@@ -14,3 +14,4 @@ ja:
         image: 施設画像
       user:
         name: 名前
+        use_mon: "利用"
