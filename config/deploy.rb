@@ -11,10 +11,9 @@ set :repo_url, 'git@github.com:y-kazuya/kaikai.git'
 set :branch, 'master'
 
 # deploy先のディレクトリ。
-set :deploy_to, '/var/www/kaikai'
+set :deploy_to, '/var/www/rails/kaikai'
 
-# シンボリックリンクをはるファイル。(※後述)
-set :linked_files, fetch(:linked_files, []).push('config/settings.yml')
+
 
 # シンボリックリンクをはるフォルダ。(※後述)
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
