@@ -88,5 +88,4 @@ gem 'bootstrap4-datetime-picker-rails'
 gem 'whenever', require: false
 gem 'activerecord-import'
 gem 'ransack'
-gem "fog"
 gem 'fog-aws'
