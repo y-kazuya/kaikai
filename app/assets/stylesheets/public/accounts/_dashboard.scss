@@ -288,7 +288,7 @@
   width: 80px;
   height: 80px;
   cursor: pointer;
-  object-fit: unset;
+  object-fit: cover;
 }
 
 .box2 .media {
@@ -376,7 +376,7 @@
   }
 
   .user_more_info{
-    bottom: -33px;
+    bottom: -28px;
   }
 
 }

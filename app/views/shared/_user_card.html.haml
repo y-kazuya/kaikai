@@ -12,7 +12,9 @@
               ="要介護度：#{user.care_level_before_type_cast || "0"}"
               - if date == today
                 %br.u-sp
-                、本日：
+                %spna.u-pc
+                  、
+                本日：
                 %span.user_coming
 
               - if date < today
