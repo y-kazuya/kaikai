@@ -324,7 +324,7 @@
 }
 
 .user_card{
-  padding: 10px 10px 5px;
+  padding: 10px;
   border: 1px solid $color-sub;
   border-radius: 8px;
   display: inline-block;
@@ -335,7 +335,7 @@
 
 .user_more_info{
   position: absolute;
-  bottom: -21px;
+  bottom: -25px;
   right: 10px;
   z-index: 1000;
 }
@@ -376,7 +376,7 @@
   }
 
   .user_more_info{
-    bottom: -28px;
+    bottom: -33px;
   }
 
 }

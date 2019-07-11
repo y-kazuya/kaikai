@@ -263,7 +263,11 @@ textarea.big_input{
     margin-bottom: 20px;
   }
 }
-
+#js-user_lists{
+  .box2_items{
+    margin-bottom: 10px;
+  }
+}
 
 
 
@@ -297,9 +301,6 @@ textarea.big_input{
   #js-user_lists{
     .form-control {
       min-width: 130px;
-    }
-    .box2_items{
-      margin-bottom: 10px;
     }
   }
 
