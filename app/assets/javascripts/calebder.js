@@ -8,9 +8,9 @@ $(document).on('turbolinks:load', function(){
     //曜日を日本語表示
     dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
 
-    height: window.innerHeight - 250, // ①
+    height: window.innerHeight - 170, // ①
     windowResize: function () { // ②
-      $('#calendar').fullCalendar('option', 'height', window.innerHeight - 250);
+      $('#calendar').fullCalendar('option', 'height', window.innerHeight - 170);
     },
 
     header: {

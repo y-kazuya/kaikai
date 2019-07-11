@@ -294,6 +294,12 @@ textarea.big_input{
     min-width: 160px;
   }
 
+  #js-user_lists{
+    .form-control {
+      min-width: 130px;
+    }
+  }
+
   .half_input{
     min-width: 100px;
   }
