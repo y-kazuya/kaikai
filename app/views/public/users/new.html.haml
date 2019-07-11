@@ -100,10 +100,6 @@
           %h3
             %span
               緊急連絡先
-
-        %p.add_content_text
-          %span{class: "js-add_em"} 緊急連絡先を追加+
-
         .js-em-lists
           - @user.emergency_contacts.each_with_index do |u_em, index|
             .js-em-list.add_list
@@ -142,6 +138,12 @@
                       .form_item
                         = em.label :address ,"町名・番地"
                         = em.text_field :address, class: 'form-control'
+        %p.add_content_text
+          %span{class: "js-add_em"} 緊急連絡先を追加+
+
+
+
+
 
 
       %article.form-card
@@ -150,8 +152,7 @@
             %span
               留意事項
 
-        %p.add_content_text
-          %span{class: "js-add_note"} 留意事項を追加+
+
         .form-items
           = label :note_category_name, "事柄のカテゴリを追加"
           .my_grid.grid-1-2-maxmax.my-grid-gap0
@@ -175,6 +176,9 @@
                       .form_item.need_item
                         = note.label :content, "内容"
                         = note.text_area :content, class: 'form-control'
+
+        %p.add_content_text
+          %span{class: "js-add_note"} 留意事項を追加+
 
       %article.form-card
         .d_title02
