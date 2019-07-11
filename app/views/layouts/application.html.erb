@@ -23,13 +23,17 @@
             <%= render 'layouts/sidebar' %>
             <div class="dash_board">
               <%= yield %>
+              <div class="u-sp">
+                <%= render 'layouts/fotter' %>
+              </div>
             </div>
           </div>
         <%- else %>
           <%= yield %>
         <%- end %>
-
-      <%= render 'layouts/fotter' %>
+      <div class="u-pc">
+        <%= render 'layouts/fotter' %>
+      </div>
     </div>
   </body>
 </html>
