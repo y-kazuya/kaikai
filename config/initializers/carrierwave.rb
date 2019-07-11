@@ -4,6 +4,7 @@ require 'carrierwave/storage/file'
 
 CarrierWave.configure do |config|
   if Rails.env.production?
+    config.storage = :fog
     config.fog_provider = 'fog/aws'
     # config.cache_storage = :fog
 
@@ -17,7 +18,7 @@ CarrierWave.configure do |config|
       region: 'ap-northeast-1'
     }
     config.fog_directory  = 'kaikai-sto'
-    # config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/kaikai-sto'
+    config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/kaikai-sto'
   else
     config.storage :file
 
