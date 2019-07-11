@@ -355,6 +355,28 @@
   }
 
 }
+
+.irr .active{
+  border: 2px solid $color-sub-sub;
+
+  .user_coming::after{
+    content: "利用予定（通常曜日外）";
+    color: $color-sub-sub;
+  }
+
+}
+
+.irr .active{
+  border: 2px solid $color-sub-sub;
+
+  .user_coming::after{
+    content: "利用予定（通常曜日外）";
+    color: $color-sub-sub;
+  }
+
+}
+
+
 .innner_box{
   margin-bottom: 25px;
 }

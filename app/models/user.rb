@@ -38,6 +38,18 @@ class User < ApplicationRecord
     {"月曜日": "mon", "火曜日": "tue", "水曜日": "wed", "木曜日": "thu", "金曜日": "fri", "土曜日": "sat", "日曜日": "sun","不規則": "random"}
   end
 
+  def use_weekday_day?(day = Date.today, q = true)
+    begin
+      day = Date.parse(day) unless day.class == Date
+    rescue
+      return false
+    end
+    day -= 1 if q && Time.now.hour == 0 && Time.now.min < 31
+    weekday = %w(sun mon tue wed thu fri sat)[day.wday]
+    today_use = eval "self.use_#{weekday}"
+    return today_use
+  end
+
   def has_today_date?
     today = Date.today
     today -= 1 if Time.now.hour == 0 && Time.now.min < 31

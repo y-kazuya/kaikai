@@ -1,5 +1,5 @@
-%li.users_list
-  .box2.user_card{class: [user.has_today_date? && date == today ? "active" : ""]}
+%li.users_list{class: [user.use_weekday_day?(date) ? "normal" : "irr"]}
+  .box2.user_card{class: [user.has_today_date? && date == today ? "active" : "non-active"]}
     .box2_innner
       .box2_item.btn-area{"aria-controls" => "multiCollapseExample1", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#user_info_#{user.id}", :role => "button"}
         .media
