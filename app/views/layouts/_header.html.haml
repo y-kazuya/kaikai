@@ -42,68 +42,10 @@
           お問い合わせ
           %span.sr-only (current)
 
-        #exampleModalCenter.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalCenterTitle", :role => "dialog", :tabindex => "-1"}
-          .modal-dialog.modal-dialog-centered{:role => "document"}
-            %section.modal-content
-              .modal-header
-                -# %h5#exampleModalCenterTitle.modal-title ログイン
-                %ul.nav.nav-tabs
-                  %li.nav-item
-                    %a.nav-link.navbar-default.active.modal-login.p-10{"data-toggle" => "tab", :href => "#tab1"} ログイン
-                  %li.nav-item
-                    %a.nav-link.navbar-default.modal-new.p-10{"data-toggle" => "tab", :href => "#tab2"} 新規登録
-                %button.close{"aria-label" => "Close", "data-dismiss" => "modal"}
-                  %span{"aria-hidden" => "true"} ×
-              .modal-body
-                .tab-content
-                  %article#tab1.tab-pane.modal-login.active
-                    .form01
-                      .form-title
-                        %h4
-                          ログイン
-                      =form_for(:session , url: sessions_path,html: { class: 'login_form ajax-form ajax-validation'},data: { remote: true }) do |f|
-                        .form_item.need_item.v-input.v-need
-                          .labe_area
-                            = f.label :email, "メールアドレス"
-                          .input_area
-                            = f.email_field :email, class: 'form-control'
-                        .form_item.need_item.v-input.v-need
-                          .labe_area
-                            = f.label :password, "パスワード"
-                          .input_area
-                            = f.password_field :password, class: 'form-control'
-                        .form_item
-                          = f.label :remember_me, class: "checkbox inline" do
-                            = f.check_box :remember_me
-                            %span Remember me
-                        .form-error
-                        .form-submit
-                          = f.submit "Log in", class: "btn btn-warning submit_btn"
-                  %article#tab2.tab-pane.modal-new
-                    .form01
-                      .form-title
-                        %h4
-                          新規登録
-                      = form_for Account.new ,html: { class: 'signup_form ajax-form ajax-validation'},data: { remote: true } do |f|
-                        .form_item.need_item.v-input.v-email.v-need.v-max-50
-                          .labe_area
-                            = f.label :email, "メールアドレス"
-                          .input_area
-                            = f.email_field :email, class: 'form-control'
-                        .form_item.need_item.v-input.v-need.v-min-6.v-password
-                          .labe_area
-                            = f.label :password,"パスワード"
-                          .input_area
-                            = f.password_field :password, class: 'form-control'
+= render partial: 'layouts/modal_form'
 
-                        .form_item.need_item.v-input.v-password-re.v-need
-                          .label_area
-                            = f.label :password_confirmation, "パスワード確認"
-                          .input_area
-                            = f.password_field :password_confirmation, class: 'form-control'
-                        .form-error
-                        .form-submit
-                          = f.submit "アカウント作成", class: "btn btn-warning submit_btn"
+
+
 
 
 
