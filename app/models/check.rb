@@ -12,7 +12,7 @@ class Check < ApplicationRecord
 
 
   enum kind: {
-    ▼選択して下さい:  nil, テキストタイプ: 0, チェックボックス: 1
+    ▼選択して下さい:  nil, テキストタイプ: 0, チェックボックス: 1, 数値タイプ: 2
   }
 
 

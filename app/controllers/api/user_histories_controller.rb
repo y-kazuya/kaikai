@@ -26,7 +26,7 @@ class Api::UserHistoriesController < ApplicationController
   private
     def user_history_params
       params.require(:user_history).permit(:content,:coming,
-                                            user_check_histories_attributes: [:id, :text_content, :check_content]
+                                            user_check_histories_attributes: [:id, :text_content, :check_content, :number_content]
                                   )
     end
 

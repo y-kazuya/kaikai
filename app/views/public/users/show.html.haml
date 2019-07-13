@@ -280,6 +280,17 @@
                       - if u_c.check.kind== "チェックボックス"
                         %p.mt-10
                           = u_c.check.title
+
+            %li
+              .box2_item.d_title04
+                %span
+                  数値タイプ
+              %ul.note-list
+                - @user.user_checks.each do |u_c|
+                  %li
+                    - if u_c.check.kind == "数値タイプ"
+                      %p.mt-10
+                        = u_c.check.title
         -# .form_item
         -#   .form-content-title
         -#     %h4
