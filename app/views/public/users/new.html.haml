@@ -180,17 +180,33 @@
         %p.add_content_text
           %span{class: "js-add_note"} 留意事項を追加+
 
+
       %article.form-card
         .d_title02
           %h3
             %span
-              利用者のチェック項目
+              基本チェック項目
+
+        .form_item.my_grid.grid-many_items.grid-many_items-300
+          = f.collection_check_boxes(:check_ids, @common_checks, :id, :title) do |b|
+            .js-check_list.custom-control.custom-radio.my_grid_item
+
+              = b.check_box class:"custom-control-input",checked: true
+              = b.label class: "custom-control-label" do
+                = "#{b.object.title}(#{b.object.kind})"
+
+
+      %article.form-card
+        .d_title02
+          %h3
+            %span
+              個人のチェック項目
         .form-items
           = label :check_title,"チェック項目の追加"
           .my_grid.grid-1-2-55.my-grid-gap0.my_grid-pc
             .my_grid_item
               .form_item
-                = select :check_kind,"aa", [["テキストタイプ", 0],["チェックタイプ",1]],{},{class: "js-check_kind_field form-control" }
+                = select :check_kind,"aa", [["テキストタイプ", 0],["チェックタイプ",1],["数字タイプ", 2]],{},{class: "js-check_kind_field form-control" }
             .my_grid_item
               .form_item
                 = text_field :check_title, {},{class: "form-control js-check_name_field d_ib" ,style: "max-width: 80%;"}
@@ -201,7 +217,7 @@
 
           .js-check_lists.form_item.my_grid.grid-many_items.grid-many_items-300
 
-            = f.collection_check_boxes(:check_ids, Check.where("(public = ?) OR (facility_id = ?)", true, current_facility.id), :id, :title) do |b|
+            = f.collection_check_boxes(:check_ids, @unique_checks, :id, :title) do |b|
               .js-check_list.custom-control.custom-radio.my_grid_item
 
                 = b.check_box class:"custom-control-input"

@@ -18,6 +18,26 @@ class Api::UserHistoriesController < ApplicationController
     end
   end
 
+  def get_check_number_histroy
+    #日付と値が必要
+    user = User.find_by(id: params[:user_id])
+    uchs = UserCheckHistory.includes(:user_history).where.not(number_content: nil).where("(user_histories.user_id = ?) and (check_id = ?)", user.id, params[:id]).references(:user_history)
+
+    unless user || user.facility != current_facility
+      return false
+    end
+    @dates = []
+    @numbers = []
+    @check = Check.find(params[:id])
+    uchs.each do |uch|
+      @dates << uch.user_history.date.strftime('%m/%d')
+      @numbers << uch.number_content
+    end
+    respond_to do |format|
+      format.json
+    end
+  end
+
 
   # format.html { redirect_back_or dashboard_account_path account }
   # format.js { render js: "window.location = '#{dashboard_account_path(account)}'" }
@@ -26,7 +46,7 @@ class Api::UserHistoriesController < ApplicationController
   private
     def user_history_params
       params.require(:user_history).permit(:content,:coming,
-                                            user_check_histories_attributes: [:id, :text_content, :check_content]
+                                            user_check_histories_attributes: [:id, :text_content, :check_content, :number_content]
                                   )
     end
 

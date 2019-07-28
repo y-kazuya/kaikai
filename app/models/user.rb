@@ -8,11 +8,13 @@ class User < ApplicationRecord
   has_many :user_histories, dependent: :destroy
   has_many :user_checks, dependent: :destroy #多対多
   has_many :checks, through: :user_checks
+  has_many :events_users, dependent: :destroy
+  has_many :events, through: :events_users
 
+  accepts_nested_attributes_for :events_users
   accepts_nested_attributes_for :user_checks
   accepts_nested_attributes_for :emergency_contacts, reject_if: :rejec_ema
   accepts_nested_attributes_for :notes, reject_if: :rejec_note
-
 
   after_save :create_today_history
 

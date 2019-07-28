@@ -89,3 +89,4 @@ gem 'whenever', require: false
 gem 'activerecord-import'
 gem 'ransack'
 gem 'fog-aws'
+gem 'chart-js-rails'

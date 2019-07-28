@@ -88,6 +88,19 @@
                                 = f_u_c_h.check_box :check_content, {class: "custom-control-input",id: "#{user.id}_#{u_c_h.id}"},1, 0
                                 = f_u_c_h.label :check_content, "#{u_c_h.user_check.check.title}",for: "#{user.id}_#{u_c_h.id}",class: "custom-control-label"
 
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        数値タイプ
+                    - f_u_h.object.user_check_histories.each do |u_c_h|
+                      %ul.note-list
+                        = f_u_h.fields_for :user_check_histories, u_c_h  do |f_u_c_h|
+                          %li
+                            - if u_c_h.user_check && u_c_h.user_check.check.kind == "数値タイプ"
+                              .box2_item.custom-control.custom-radio.flex_form.font-item
+                                = f_u_c_h.label :number_content, "#{u_c_h.user_check.check.title}",for: "#{user.id}_#{u_c_h.id}"
+                                = f_u_c_h.number_field :number_content, {class: 'form-control small_input',id: "#{user.id}_#{u_c_h.id}"}
+
               .innner_box
                 .d_title03
                   %h4
@@ -139,6 +152,18 @@
                               = "#{u_c_h.user_check.check.title}："
                               =  u_c_h.check_content ? "○" : "×"
 
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        数値タイプ
+                    - user_history.user_check_histories.each do |u_c_h|
+                      %ul.note-list
+                        %li
+                          - if u_c_h.user_check && u_c_h.user_check.check.kind == "数値タイプ"
+                            .box2_item.custom-radio.flex_form.font-item
+                              =  "#{u_c_h.user_check.check.title}"
+                              = u_c_h.number_content
+
 
               .innner_box
                 .d_title03
@@ -179,6 +204,18 @@
                       %ul.note-list
                         %li
                           - if u_c.check.kind == "チェックボックス"
+                            .box2_item.custom-radio.flex_form.font-item
+                              = "#{u_c.check.title}"
+
+
+                  %li
+                    .box2_item.d_title04
+                      %span
+                        数値タイプ
+                    - user.user_checks.each do |u_c|
+                      %ul.note-list
+                        %li
+                          - if u_c.check.kind == "数値タイプ"
                             .box2_item.custom-radio.flex_form.font-item
                               = "#{u_c.check.title}"
 

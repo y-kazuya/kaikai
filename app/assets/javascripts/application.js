@@ -11,4 +11,5 @@
 //= require fullcalendar
 
 //= require tempusdominus-bootstrap-4.js
+//= require Chart.min
 //=require_tree .

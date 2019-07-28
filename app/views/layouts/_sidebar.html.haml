@@ -21,7 +21,7 @@
         =image_tag("common/icon_dash.png", class:"side_icon")
         %span ダッシュボード
     %li.siebar_list{class: "#{sidebar_active?("events")}" }
-      = link_to "#" do
+      = link_to account_events_path(current_account) do
         =image_tag("common/icon_calendar.png", class:"side_icon")
         %span イベント管理
     %li.siebar_list{class: "#{sidebar_active?("users")}" }

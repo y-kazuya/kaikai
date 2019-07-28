@@ -4,6 +4,7 @@ class Facility < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :note_categories, dependent: :destroy
   has_many :checks, dependent: :destroy
+  has_many :events, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   VALID_URL_REGEX = /\Ahttp(s)?:\/\/([-\w]+\.)+[-\w]+(\/[-\w.\/?%&=]*)?/
@@ -35,6 +36,7 @@ class Facility < ApplicationRecord
     徳島県:36,香川県:37,愛媛県:38,高知県:39,
     福岡県:40,佐賀県:41,長崎県:42,熊本県:43,大分県:44,宮崎県:45,鹿児島県:46,沖縄県:47
   }
+
 
 
   def use_users(day = Date.today, facility = self, q = true)

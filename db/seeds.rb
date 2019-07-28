@@ -13,11 +13,25 @@ public_note_categories.each do |cate|
   NoteCategory.create(name: cate, public: true)
 end
 
-checks = [["排泄回数", 0], ["食事済", 0],["水分補給量", 0],["薬昼", 1],["薬夜", 1]]
+public_checks = [["排泄回数", 2], ["食事済", 1],["薬昼", 1],["薬夜", 1]]
+piblic_common_checks = [
+  ["体温",2],
+  ["脈",2],
+  ["血圧",2],
+  ["体重",2],
+  ["バイタル",2]
+]
 
-checks.each do |check|
+
+public_checks.each do |check|
   Check.create(title: check[0],kind: check[1] , public: true)
 end
+
+piblic_common_checks.each do |check|
+  Check.create(title: check[0],kind: check[1] , public: true, common: true)
+end
+
+
 
 
 
@@ -45,7 +59,7 @@ weekday = %w(sun mon tue wed thu fri sat)
   account = Account.create(email: "tese#{a_id}@test.com", password: "111111")
   account.facility.update_attributes(name: "#{Faker::House.room},#{a_id}", tel: Faker::PhoneNumber.phone_number,email:Faker::Internet.email,pref: rand(1..47), city:Faker::Address.city, address: Faker::Address.street_address )
 
-  checks = []
+  checks = Check.where(public: true).to_a
   rand(1..11).times do
     checks << Check.create(title: Faker::Job.title, facility_id: account.facility.id , kind: rand(0..1), public: false)
   end
@@ -100,10 +114,11 @@ weekday = %w(sun mon tue wed thu fri sat)
             param = {user_history_id: user_histroy.id, check_id: u_c_h.check.id, user_check_id: user_check_id }
             if u_c_h.check.kind == 0
               param["text_content"] = Faker::Lorem.sentence(3, true)
+            elsif u_c_h.check.kind == 1
+              param["check_content"] = rand(0..1)
             else
-              param["check_content"] = ranran
+              param["number_content"] = rand(70..190)
             end
-            u_c_h.update_attributes(param)
           end
         rescue
           puts "error"
@@ -119,6 +134,10 @@ dates.each do |day|
   week = weekday[day.wday]
   users = User.where("use_#{week} = true")
   users.each do |user|
-    user_histroy = Userhistory.create(date: day,user_id: user.id, coming: ranran,content: Faker::Lorem.paragraph_by_chars )
+    begin
+      user_histroy = UserHistory.create(date: day,user_id: user.id, coming: ranran,content: Faker::Lorem.paragraph_by_chars )
+    rescue
+      next
+    end
   end
 end

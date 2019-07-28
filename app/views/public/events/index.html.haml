@@ -1,0 +1,31 @@
+
+= provide(:title, 'イベント一覧')
+%section.dash_board_main.user_index
+  .d_title01
+    %h2
+      %span
+        イベント管理
+  .dash_board_innner
+    %p.add_content_text
+      %span
+        = link_to "新規イベントを登録+", new_account_event_path(current_account)
+    = render partial: 'shared/user_search_box'
+
+
+
+
+    %article
+      .d_title02
+        %h3
+          %span
+            イベント一覧
+      .form-items#js-user_lists
+        -# .card.bg-light.mb-3{:style => "max-width: 18rem;"}
+        -#   .card-header Header
+        -#   .card-body
+        -#     %h5.card-title Light card title
+        -#     %p.card-text Some quick example text to build on the card title and make up the bulk of the card's content.
+        %p
+          準備中です。
+
+
