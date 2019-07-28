@@ -99,7 +99,7 @@
                             - if u_c_h.user_check && u_c_h.user_check.check.kind == "数値タイプ"
                               .box2_item.custom-control.custom-radio.flex_form.font-item
                                 = f_u_c_h.label :number_content, "#{u_c_h.user_check.check.title}",for: "#{user.id}_#{u_c_h.id}"
-                                = f_u_c_h.number_field :number_content, {class: 'form-control',id: "#{user.id}_#{u_c_h.id}"}
+                                = f_u_c_h.number_field :number_content, {class: 'form-control small_input',id: "#{user.id}_#{u_c_h.id}"}
 
               .innner_box
                 .d_title03

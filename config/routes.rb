@@ -22,12 +22,14 @@ Rails.application.routes.draw do
       end
       resource :facilities, only: [:show,:edit,:update]
       resources :users, only: [:index,:new,:edit,:create,:show,:update,:destroy]
+      resources :events
 
     end
 
 
 
     resources :sessions, only: [:new, :create, :destroy]
+
   end
 
   resources :password_resets, only: [:new, :create, :edit, :update]
@@ -52,5 +54,7 @@ Rails.application.routes.draw do
 
     post   "/irregular_visits",         to: "irregular_visits#create"
     delete "/irregular_visits",         to: "irregular_visits#destroy"
+
+    get   "/users/:user_id/check/:id", to: "user_histories#get_check_number_histroy", as: "get_check_number_histroy"
   end
 end

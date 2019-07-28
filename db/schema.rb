@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190713041612) do
+ActiveRecord::Schema.define(version: 20190728053929) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
@@ -57,6 +57,30 @@ ActiveRecord::Schema.define(version: 20190713041612) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_emergency_contacts_on_user_id"
+  end
+
+  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title"
+    t.string "charge"
+    t.string "address"
+    t.text "content"
+    t.integer "kind"
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.bigint "facility_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facility_id"], name: "index_events_on_facility_id"
+  end
+
+  create_table "events_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_events_users_on_event_id"
+    t.index ["user_id", "event_id"], name: "index_events_users_on_user_id_and_event_id", unique: true
+    t.index ["user_id"], name: "index_events_users_on_user_id"
   end
 
   create_table "facilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -177,6 +201,9 @@ ActiveRecord::Schema.define(version: 20190713041612) do
 
   add_foreign_key "checks", "facilities"
   add_foreign_key "emergency_contacts", "users"
+  add_foreign_key "events", "facilities"
+  add_foreign_key "events_users", "events"
+  add_foreign_key "events_users", "users"
   add_foreign_key "histories", "users"
   add_foreign_key "irregular_visits", "users"
   add_foreign_key "note_categories", "facilities"

@@ -318,5 +318,26 @@
         -#                 .mt-10
         -#                   = c.title
 
+    %article.form-card
+      .d_title02
+        %h3
+          %a.acordion-switch{"aria-controls" => "multiCollapseExample1", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#chat_area", :role => "button"}
+            %span
+              数値項目の推移
+            %span.toggler
+              ▽
+
+      .form-items.collapse.multi-collapse.chart_zone{id: "chat_area"}
+        -if @number_checks.length > 0
+          %ul.item_lists02.my_grid.grid-many_items.grid-many_items-170
+            - @number_checks.each do |check|
+              %li.add_content_text.item_list02.js-cart_title{data:{user_id: @user.id, check_id: check.id}}
+                %span
+                  =check.title
+          %canvas#myChart{:height => "65", :width => "100"}
+
+
+
+
 
 

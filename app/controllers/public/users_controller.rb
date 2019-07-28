@@ -4,13 +4,16 @@ class Public::UsersController < Public::ApplicationController
     check_auth_account_info(params[:account_id])
   }
 
+
+
   def index
     @users = current_facility.users.with_info
   end
 
   def new
     @user = User.new
-
+    @unique_checks = Check.where("(common = ?) AND ((public = ?) OR (facility_id = ?))", false,true, current_facility.id)
+    @common_checks = Check.where("((common = ?) AND (public = ?)) OR ((common = ?) AND (facility_id = ?)) ", true,true,true ,current_facility.id)
     @user.emergency_contacts.build
     @user.notes.build
     @user.user_checks.build
@@ -19,6 +22,8 @@ class Public::UsersController < Public::ApplicationController
 
   def create
     @user = User.new(user_params)
+    @unique_checks = Check.where("(common = ?) AND ((public = ?) OR (facility_id = ?))", false,true, current_facility.id)
+    @common_checks = Check.where("((common = ?) AND (public = ?)) OR ((common = ?) AND (facility_id = ?)) ", true,true,true ,current_facility.id)
     @user.facility_id = current_facility.id
     if @user.save
       flash[:info] = "ユーザーの登録に成功しました"
@@ -32,6 +37,8 @@ class Public::UsersController < Public::ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @unique_checks = Check.where("(common = ?) AND ((public = ?) OR (facility_id = ?))", false,true, current_facility.id)
+    @common_checks = Check.where("((common = ?) AND (public = ?)) OR ((common = ?) AND (facility_id = ?)) ", true,true,true ,current_facility.id)
     @user.emergency_contacts.build if @user.emergency_contacts == []
     @user.notes.build if @user.notes == []
     @user.user_checks.build if @user.user_checks == []
@@ -39,11 +46,14 @@ class Public::UsersController < Public::ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @number_checks = @user.checks.where(kind: 2)
     check_auth_account_info(@user.facility.account.id)
   end
 
   def update
     @user = User.find(params[:id])
+    @unique_checks = Check.where("(common = ?) AND ((public = ?) OR (facility_id = ?))", false,true, current_facility.id)
+    @common_checks = Check.where("((common = ?) AND (public = ?)) OR ((common = ?) AND (facility_id = ?)) ", true,true,true ,current_facility.id)
 
     if @user.update_attributes(user_params)
       flash[:success] = "ユーザー情報を編集しました"
