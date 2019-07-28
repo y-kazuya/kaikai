@@ -1,4 +1,4 @@
 class EventsUser < ApplicationRecord
   belongs_to :event
-  belogs_to :user
+  belongs_to :user
 end
